@@ -5,11 +5,14 @@
   border-radius: 20px;
   padding: 20px; 
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  transition: opacity .2s linear;
 }
 
 .board__title {
-  background-color: #fff;
-  height: 40px;
-  border-radius: 10px;
-  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  font: 500 24px/26px 'Inter', sans-serif;
+}
+
+.board:hover {
+  opacity: .6;
+  cursor: pointer;
 }

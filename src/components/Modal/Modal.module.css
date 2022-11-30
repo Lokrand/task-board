@@ -1,0 +1,23 @@
+.content {
+  width: 640px;
+  padding: 40px;
+  opacity: 1;
+  border-radius: 40px;
+  background-color: #1c1c21;
+  transform: scale(0.5);
+  transition: 0.4s all;
+  text-align: center;
+}
+
+.content.active {
+  transform: scale(1);
+}
+
+.closeIcon {
+  display: flex;
+  position: absolute;
+  top: 60px;
+  right: 40px;
+  justify-content: flex-end;
+  cursor: pointer;
+}

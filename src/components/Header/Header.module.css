@@ -33,8 +33,15 @@
   align-items: center;
   height: 40px;
   background-color: #68237F;
+  text-decoration: none;
   color: #fff;
   border: none;
+  transition: opacity .2s linear;
+}
+
+.button:hover {
+  opacity: .6;
+  cursor: pointer;
 }
 
 .button__image {
