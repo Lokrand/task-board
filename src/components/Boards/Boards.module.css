@@ -8,17 +8,81 @@
   box-sizing: border-box;
   width: 340px;
   height: 190px;
-  background-color: #8B008B;
+  background-color: #8b008b;
   border: none;
   border-radius: 20px;
-  padding: 20px; 
+  padding: 20px;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-  font: 500 20px/24px 'Inter', sans-serif;
+  font: 500 24px/26px "Inter", sans-serif;
   color: #fff;
-  transition: opacity .2s linear;
+  transition: opacity 0.2s linear;
 }
 
 .boards__button:hover {
-  opacity: .6;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.boards__createBoard {
+  width: 300px;
+  height: 150px;
+  background-color: #ecebe8;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.boards__input {
+  display: inline-block;
+  align-items: center;
+  width: 260px;
+  min-height: 45px;
+  padding: 20px;
+  font: 400 20px/20px "Inter", sans-serif;
+  overflow-y: auto;
+  background-color: #fff;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.boards__input::-webkit-scrollbar {
+  display: none;
+}
+textarea {
+  resize: none;
+}
+
+.tasks__cancel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.tasks__cross {
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.2s linear;
+}
+
+.tasks__cross:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.tasks_addNewTaskButton {
+  width: 200px;
+  height: 40px;
+  background-color: #9932cc;
+  font: 400 20px/20px "Inter", sans-serif;
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  transition: opacity 0.2s linear;
+}
+
+.tasks_addNewTaskButton:hover {
+  opacity: 0.6;
   cursor: pointer;
 }

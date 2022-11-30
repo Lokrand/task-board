@@ -22,15 +22,7 @@ export const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/tasks" element={<Tasks />} />
-        <Route path="/tasks/:id" element={
-        <Modal
-          active={modal === "IngredientPopup"}
-          onClose={onCloseDetailsModal}
-        >
-          <TaskDetails />
-        </Modal>
-          } />
+        <Route path="/tasks/:id" element={<Tasks />} />
       </Routes>
     </>
   );
