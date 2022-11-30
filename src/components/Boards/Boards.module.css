@@ -1,0 +1,24 @@
+.boards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.boards__button {
+  box-sizing: border-box;
+  width: 340px;
+  height: 190px;
+  background-color: #8B008B;
+  border: none;
+  border-radius: 20px;
+  padding: 20px; 
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  font: 500 20px/24px 'Inter', sans-serif;
+  color: #fff;
+  transition: opacity .2s linear;
+}
+
+.boards__button:hover {
+  opacity: .6;
+  cursor: pointer;
+}
