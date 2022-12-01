@@ -7,7 +7,7 @@ import { boards } from "./boards";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: [],
+  whitelist: ['boards'],
 };
 
 const rootReducer = combineReducers({

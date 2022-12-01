@@ -7,7 +7,7 @@ const initialState = {
 export const queue = (state = initialState, action) => {
   switch (action.type) {
     case ADD_QUEUE:
-      console.log(action)
+      // console.log(action)
       if (action.payload) {
         state.tasks.push(action.payload);
         return { ...state, tasks: state.tasks };

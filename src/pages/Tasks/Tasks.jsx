@@ -4,6 +4,9 @@ import cross from "../../images/cross.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { AddNewQueueTask } from "../../services/reducers/queue";
 import { Task } from "../../components/Task/Task";
+import { useLocation } from "react-router-dom";
+import { addQueueToBoard } from "../../services/reducers/boards";
+import { generateKeys } from "../../utils/generateKeys";
 
 export const Tasks = () => {
   const [addNewTask, setAddNewTask] = useState(false);
@@ -11,7 +14,13 @@ export const Tasks = () => {
   const [newQueue, setNewQueue] = useState();
   const [newQueueTitle, setNewQueueTitle] = useState("");
   const queueTasks = useSelector((state) => state.queue.tasks);
-  console.log(queueTasks);
+  const history = useLocation()
+  const id = history.pathname.replace(/\/tasks\//g, '')
+  const boards = useSelector((state) => state.boards.boards)
+  const selectedBoard = boards.filter((el) => el.key === id)[0]
+  console.log('selectedBoard', selectedBoard)
+
+
   const dispatch = useDispatch();
 
   const onClick = () => {
@@ -39,6 +48,12 @@ export const Tasks = () => {
   const time = new Date();
 
   const addNewQueue = () => {
+    dispatch(addQueueToBoard({
+      key: selectedBoard.key,
+      title: newQueueTitle,
+      date: time,
+      id: generateKeys(),
+    }))
     setNewQueue({
       time: time,
       title: newQueueTitle,
@@ -51,13 +66,13 @@ export const Tasks = () => {
 
   return (
     <section className={styles.tasks}>
-      <h2 className={styles.tasks__title}>My project</h2>
+      <h2 className={styles.tasks__title}>{selectedBoard.title}</h2>
       <div className={styles.tasks__columns}>
         <div className={styles.tasks__column}>
           <h3 className={styles.tasks__taskName}>Queue</h3>
           <div className={styles.tasks__items}>
-            {queueTasks.map((el) => {
-              return <Task title={el.title} />;
+            {selectedBoard.queue.map((el) => {
+              return <Task key={el.id} title={el.title} id={el.id} board={selectedBoard.key}/>;
             })}
 
             {addNewTask && (

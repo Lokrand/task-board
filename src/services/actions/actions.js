@@ -4,3 +4,5 @@ export const CHANGE_BOARD = "CHANGE_BOARD";
 export const ADD_QUEUE = "ADD_QUEUE";
 export const REMOVE_QUEUE = "REMOVE_QUEUE";
 export const CHANGE_QUEUE = "CHANGE_QUEUE";
+export const ADD_QUEUE_TO_BOARD = "ADD_QUEUE_TO_BOARD";
+export const REMOVE_QUEUE_FROM_BOARD = "REMOVE_QUEUE_FROM_BOARD";

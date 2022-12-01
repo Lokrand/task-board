@@ -41,6 +41,9 @@ export const Boards = () => {
         title: newBoardTitle,
         date: date,
         key: generateKeys(),
+        queue: [],
+        developments: [],
+        done: [],
       })
     );
     setActive(false);

@@ -12,7 +12,7 @@ export const App = () => {
   // const modalType = useSelector((state) => state.modal.modalType);
   const [modal, setModal] = useState(false)
   const navigate = useNavigate();
-  console.log(navigate)
+  // console.log(navigate)
   const onCloseDetailsModal = () => {
     navigate.goBack();
     // dispatch(deleteDetails());
