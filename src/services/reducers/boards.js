@@ -8,6 +8,14 @@ const initialState = {
   boards: [],
 };
 
+const removeEl = (state, type, key) => {
+  for (let i = 0; i < state.length; i++) {
+    let result = state[i][type].filter((elem) => elem.id !== key)
+    state[i][type] = result;
+  }
+  return state
+};
+
 export const boards = (state = initialState, action) => {
   switch (action.type) {
     case ADD_BOARD:
@@ -28,16 +36,8 @@ export const boards = (state = initialState, action) => {
 
       return { ...state };
     case REMOVE_QUEUE_FROM_BOARD:
-      const board = state.boards.filter(
-        (el) => el.key === action.payload.board
-      )[0];
-      const removeQueue = board.queue.filter((el) =>  el.key !== action.payload.id);
-      board.queue = removeQueue
-      for (let i = 0; i < state.boards.length; i++) {
-        
-      }
-      // state.boards.forEach((el) => el.queue.filter((elem) => elem.key !== action.payload.id))
-      return {...state}
+      const result = removeEl(state.boards, 'queue', action.payload.id)
+      return {...state, boards: result}
     default:
       return state;
   }

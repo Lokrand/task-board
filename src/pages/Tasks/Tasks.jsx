@@ -14,12 +14,11 @@ export const Tasks = () => {
   const [newQueue, setNewQueue] = useState();
   const [newQueueTitle, setNewQueueTitle] = useState("");
   const queueTasks = useSelector((state) => state.queue.tasks);
-  const history = useLocation()
-  const id = history.pathname.replace(/\/tasks\//g, '')
-  const boards = useSelector((state) => state.boards.boards)
-  const selectedBoard = boards.filter((el) => el.key === id)[0]
-  console.log('selectedBoard', selectedBoard)
-
+  const history = useLocation();
+  const id = history.pathname.replace(/\/tasks\//g, "");
+  const boards = useSelector((state) => state.boards.boards);
+  const selectedBoard = boards.filter((el) => el.key === id)[0];
+  console.log("selectedBoard", selectedBoard);
 
   const dispatch = useDispatch();
 
@@ -48,12 +47,14 @@ export const Tasks = () => {
   const time = new Date();
 
   const addNewQueue = () => {
-    dispatch(addQueueToBoard({
-      key: selectedBoard.key,
-      title: newQueueTitle,
-      date: time,
-      id: generateKeys(),
-    }))
+    dispatch(
+      addQueueToBoard({
+        key: selectedBoard.key,
+        title: newQueueTitle,
+        date: time,
+        id: generateKeys(),
+      })
+    );
     setNewQueue({
       time: time,
       title: newQueueTitle,
@@ -65,68 +66,80 @@ export const Tasks = () => {
   const dones = [1, 2, 3];
 
   return (
-    <section className={styles.tasks}>
-      <h2 className={styles.tasks__title}>{selectedBoard.title}</h2>
-      <div className={styles.tasks__columns}>
-        <div className={styles.tasks__column}>
-          <h3 className={styles.tasks__taskName}>Queue</h3>
-          <div className={styles.tasks__items}>
-            {selectedBoard.queue.map((el) => {
-              return <Task key={el.id} title={el.title} id={el.id} board={selectedBoard.key}/>;
-            })}
+    <>
+      <section className={styles.tasks}>
+        <h2 className={styles.tasks__title}>{selectedBoard.title}</h2>
+        <div className={styles.tasks__columns}>
+          <div className={styles.tasks__column}>
+            <h3 className={styles.tasks__taskName}>Queue</h3>
+            <div className={styles.tasks__items}>
+              {selectedBoard.queue.map((el) => {
+                return (
+                  <Task
+                    key={el.id}
+                    title={el.title}
+                    id={el.id}
+                    board={selectedBoard.key}
+                  />
+                );
+              })}
 
-            {addNewTask && (
-              <>
-                <textarea
-                  className={styles.tasks__input}
-                  rows="1"
-                  placeholder="Enter the name of the new task..."
-                  id="textName"
-                  onChange={onChange}
-                ></textarea>
-                {showAddButton && (
-                  <div className={styles.tasks__cancel}>
-                    <button
-                      className={styles.tasks_addNewTaskButton}
-                      onClick={addNewQueue}
-                    >
-                      Add a task
-                    </button>
-                    <img
-                      src={cross}
-                      alt="cross"
-                      className={styles.tasks__cross}
-                      onClick={closeInput}
-                    />
-                  </div>
-                )}
-              </>
-            )}
+              {addNewTask && (
+                <>
+                  <textarea
+                    className={styles.tasks__input}
+                    rows="1"
+                    placeholder="Enter the name of the new task..."
+                    id="textName"
+                    onChange={onChange}
+                  ></textarea>
+                  {showAddButton && (
+                    <div className={styles.tasks__cancel}>
+                      <button
+                        className={styles.tasks_addNewTaskButton}
+                        onClick={addNewQueue}
+                      >
+                        Add a task
+                      </button>
+                      <img
+                        src={cross}
+                        alt="cross"
+                        className={styles.tasks__cross}
+                        onClick={closeInput}
+                      />
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+            <button className={styles.tasks__button} onClick={onClick}>
+              Add a new task...
+            </button>
           </div>
-          <button className={styles.tasks__button} onClick={onClick}>
-            Add a new task...
-          </button>
-        </div>
-        <div className={styles.tasks__column}>
-          <h3 className={styles.tasks__taskName}>Development</h3>
-          <div className={styles.tasks__items}>
-            {developments.map((el) => {
-              return <Task title={el} />;
-            })}
-          </div>
+          <div className={styles.tasks__column}>
+            <h3 className={styles.tasks__taskName}>Development</h3>
+            <div className={styles.tasks__items}>
+              {developments.map((el) => {
+                return <Task title={el} />;
+              })}
+            </div>
 
-          <button className={styles.tasks__button}>Add a new task...</button>
-        </div>
-        <div className={styles.tasks__column}>
-          <h3 className={styles.tasks__taskName}>Done</h3>
-          <div className={styles.tasks__items}>
-            {dones.map((el) => {
-              return <Task title={el} />;
-            })}
+            <button className={styles.tasks__button}>Add a new task...</button>
           </div>
-          <button className={styles.tasks__button}>Add a new task...</button>
+          <div className={styles.tasks__column}>
+            <h3 className={styles.tasks__taskName}>Done</h3>
+            <div className={styles.tasks__items}>
+              {dones.map((el) => {
+                return <Task title={el} />;
+              })}
+            </div>
+            <button className={styles.tasks__button}>Add a new task...</button>
+          </div>
         </div>
+      </section>
+      <div className={styles.modal}>
+        <div className={styles.modal__content}>sukaa</div>
       </div>
-    </section>
+    </>
   );
 };

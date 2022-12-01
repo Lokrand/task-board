@@ -1,7 +1,7 @@
 .tasks {
   padding: 30px 40px 0;
-  min-height: calc(100vh - 80px);
-  background-color: #9932cc;
+  min-height: calc(100vh - 110px);
+  background-color: #89609E;
 }
 
 .tasks__title {
@@ -120,3 +120,29 @@ textarea {
   opacity: .6;
   cursor: pointer;
 }
+
+.modal {
+  width: 100vw;
+  height: calc(100vh - 80px);
+  position: fixed;
+  top: 80px;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  pointer-events: none;
+  transition: 0.5s all;
+  z-index: 9999;
+}
+
+.modal__content {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  background-color: #ecebe8;
+}
+
