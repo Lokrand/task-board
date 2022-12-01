@@ -7,6 +7,8 @@ import { Task } from "../../components/Task/Task";
 import { useLocation } from "react-router-dom";
 import { addQueueToBoard } from "../../services/reducers/boards";
 import { generateKeys } from "../../utils/generateKeys";
+import { Modal } from "../../components/Modal/Modal";
+import { openModal } from "../../services/reducers/modal";
 
 export const Tasks = () => {
   const [addNewTask, setAddNewTask] = useState(false);
@@ -18,6 +20,8 @@ export const Tasks = () => {
   const id = history.pathname.replace(/\/tasks\//g, "");
   const boards = useSelector((state) => state.boards.boards);
   const selectedBoard = boards.filter((el) => el.key === id)[0];
+  const active = useSelector((state) => state.modal.active);
+
   console.log("selectedBoard", selectedBoard);
 
   const dispatch = useDispatch();
@@ -80,6 +84,9 @@ export const Tasks = () => {
                     title={el.title}
                     id={el.id}
                     board={selectedBoard.key}
+                    openModal={() => {
+                      dispatch(openModal())
+                    }}
                   />
                 );
               })}
@@ -137,9 +144,7 @@ export const Tasks = () => {
           </div>
         </div>
       </section>
-      <div className={styles.modal}>
-        <div className={styles.modal__content}>sukaa</div>
-      </div>
+      {active && <Modal />}
     </>
   );
 };

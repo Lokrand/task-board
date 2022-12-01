@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { queue } from "./queue";
 import { boards } from "./boards";
+import { modal } from "./modal";
 
 const persistConfig = {
   key: "root",
@@ -12,7 +13,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   queue, 
-  boards 
+  boards,
+  modal
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

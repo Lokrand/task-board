@@ -1,21 +1,28 @@
-export const SET_MODAL = "SET_MODAL";
+export const OPEN_MODAL = "OPEN_MODAL";
+export const CLOSE_MODAL = "CLOSE_MODAL";
 
 const initialState = {
-  modalType: "",
+  active: false,
 };
 
 export const modal = (state = initialState, action) => {
   switch (action.type) {
-    case SET_MODAL:
+    case OPEN_MODAL:
       return {
-        modalType: action.payload,
+        active: true
+      };
+    case CLOSE_MODAL:
+      return {
+        active: false
       };
     default:
       return state;
   }
 };
 
-export const openModal = (payload) => ({
-  type: SET_MODAL,
-  payload,
+export const openModal = () => ({
+  type: OPEN_MODAL,
+});
+export const closeModalAction = () => ({
+  type: CLOSE_MODAL,
 });

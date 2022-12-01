@@ -1,12 +1,12 @@
 .tasks {
   padding: 30px 40px 0;
   min-height: calc(100vh - 110px);
-  background-color: #89609E;
+  background-color: #89609e;
 }
 
 .tasks__title {
   margin-bottom: 20px;
-  font: 900 30px/36px 'Inter', sans-serif;
+  font: 900 30px/36px "Inter", sans-serif;
   color: #fff;
   text-shadow: 3px 3px 7px rgba(0, 0, 0, 1);
 }
@@ -36,9 +36,9 @@
   background-color: #ecebe8;
   border: none;
   border-radius: 0 0 20px 20px;
-  font: 500 20px/22px 'Inter', sans-serif;
-  opacity: .2;
-  transition: all .2s linear;
+  font: 500 20px/22px "Inter", sans-serif;
+  opacity: 0.2;
+  transition: all 0.2s linear;
 }
 
 .tasks__button:hover {
@@ -52,7 +52,7 @@
 }
 
 .tasks__taskName {
-  font: 500 20px/22px 'Inter',sans-serif;
+  font: 500 20px/22px "Inter", sans-serif;
   margin-bottom: 20px;
 }
 
@@ -72,7 +72,7 @@
   /* max-width: 437px; */
   min-height: 10px;
   padding: 20px;
-  font: 400 20px/20px 'Inter',sans-serif;
+  font: 400 20px/20px "Inter", sans-serif;
   overflow-y: auto;
   background-color: #fff;
   border: none;
@@ -88,7 +88,6 @@ textarea {
   display: none;
 }
 
-
 .tasks__cancel {
   display: flex;
   column-gap: 20px;
@@ -97,11 +96,11 @@ textarea {
 .tasks__cross {
   width: 20px;
   height: 20px;
-  transition: opacity .2s linear;
+  transition: opacity 0.2s linear;
 }
 
 .tasks__cross:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
 
@@ -109,40 +108,14 @@ textarea {
   width: 200px;
   height: 40px;
   background-color: #9932cc;
-  font: 400 20px/20px 'Inter',sans-serif;
+  font: 400 20px/20px "Inter", sans-serif;
   border-radius: 10px;
   padding: 10px;
   border: none;
-  transition: opacity .2s linear;
+  transition: opacity 0.2s linear;
 }
 
 .tasks_addNewTaskButton:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
-
-.modal {
-  width: 100vw;
-  height: calc(100vh - 80px);
-  position: fixed;
-  top: 80px;
-  left: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 1;
-  pointer-events: none;
-  transition: 0.5s all;
-  z-index: 9999;
-}
-
-.modal__content {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 60%;
-  height: 100%;
-  background-color: #ecebe8;
-}
-

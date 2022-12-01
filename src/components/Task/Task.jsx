@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./Task.module.css";
 import remove from '../../images/remove.svg'
 import edit from '../../images/edit.svg'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeQueueFromBoard } from "../../services/reducers/boards";
 
-export const Task = ({title, id, boardKey}) => {
+export const Task = ({title, id, boardKey, openModal}) => {
   const dispatch = useDispatch()
   const [modalActive, setModalActive] = useState(false)
   const removeTask = () => {
@@ -14,13 +14,10 @@ export const Task = ({title, id, boardKey}) => {
       boardKey
     }))
   }
-  const openModal = () => {
-    setModalActive(true)
 
-  }
   return (
     <div className={styles.task}>
-      <p>{title}</p>
+      <p className={styles.task__title}>{title}</p>
       <div className={styles.task__icons}>
         <img src={edit} alt="edit" className={styles.task__icon} onClick={openModal}/>
         <img src={remove} alt="remove" className={styles.task__icon} onClick={removeTask}/>
