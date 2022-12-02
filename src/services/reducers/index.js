@@ -8,7 +8,7 @@ import { modal } from "./modal";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ['boards'],
+  whitelist: [],
 };
 
 const rootReducer = combineReducers({

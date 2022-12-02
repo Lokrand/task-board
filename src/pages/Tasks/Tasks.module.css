@@ -1,3 +1,12 @@
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+li::marker {
+  display: none;
+}
+
 .tasks {
   padding: 30px 40px 0;
   min-height: calc(100vh - 110px);
@@ -5,7 +14,7 @@
 }
 
 .tasks__title {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   font: 900 30px/36px "Inter", sans-serif;
   color: #fff;
   text-shadow: 3px 3px 7px rgba(0, 0, 0, 1);
@@ -70,7 +79,7 @@
   align-items: center;
   width: calc(100%-40px);
   /* max-width: 437px; */
-  min-height: 10px;
+  min-height: 40px;
   padding: 20px;
   font: 400 20px/20px "Inter", sans-serif;
   overflow-y: auto;
@@ -117,5 +126,123 @@ textarea {
 
 .tasks_addNewTaskButton:hover {
   opacity: 0.6;
+  cursor: pointer;
+}
+
+.tasks__icon {
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.2s linear;
+}
+
+.tasks__icon:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.tasks__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tasks__titleBlock {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  align-items: center;
+}
+
+.tasks__changeTitleBlock {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  align-items: center;
+}
+
+.tasks__changeTitleInput {
+  width: 250px;
+  height: 25px;
+  font: 400 20px/22px "Inter", sans-serif;
+}
+
+.tasks__saveTitleButton {
+  background-color: rgb(11, 218, 81);
+  border: none;
+  border-radius: 10px;
+  width: 80px;
+  height: 30px;
+  transition: opacity 0.2s linear;
+}
+
+.tasks__saveTitleButton:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.tasks__boardStatus {
+  display: flex;
+  flex-direction: row;
+  column-gap: 30px;
+}
+
+.tasks__completeButton {
+  background-color: rgb(11, 218, 81);
+  border: none;
+  border-radius: 10px;
+  width: 120px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  align-items: center;
+  font: 500 14px/14px "Inter", sans-serif;
+  color: black;
+  transition: opacity 0.2s linear;
+}
+
+.tasks__completeButton:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.tasks__removeButton {
+  background-color: red;
+  border: none;
+  border-radius: 10px;
+  width: 120px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  align-items: center;
+  font: 500 14px/14px "Inter", sans-serif;
+  color: #fff;
+  transition: opacity 0.2s linear;
+}
+
+.tasks__removeButton:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.tasks__inactiveButton {
+  width: 120px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  align-items: center;
+  background-color: yellow;
+  border: none;
+  border-radius: 10px;
+  font: 500 14px/14px "Inter", sans-serif;
+  color:rgba(0, 0, 0, 1);
+  transition: opacity 0.2s linear;
+}
+
+.tasks__inactiveButton:hover {
+  opacity: .6;
   cursor: pointer;
 }

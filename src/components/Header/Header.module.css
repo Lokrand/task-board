@@ -21,6 +21,7 @@
 .logo {
   position: relative;
   display: flex;
+  height: 80px;
   flex-direction: row;
   align-items: center;
   text-decoration: none;
