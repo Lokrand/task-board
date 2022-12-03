@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeQueueFromBoard } from "../../services/reducers/boards";
 import { Reorder } from "framer-motion";
 
-export const Task = ({ el, title, id, boardKey, openModal }) => {
+export const Task = ({ el, title, id, boardKey, openModal, status }) => {
   const dispatch = useDispatch();
   const [modalActive, setModalActive] = useState(false);
   const task = useSelector((state) => state.modal.currentTask);
@@ -19,7 +19,6 @@ export const Task = ({ el, title, id, boardKey, openModal }) => {
       })
     );
   };
-
   return (
     <Reorder.Item
       value={el}
@@ -28,7 +27,7 @@ export const Task = ({ el, title, id, boardKey, openModal }) => {
         filter: "invert(1)",
       }}
     >
-      <div className={styles.task}>
+      <div className={ status === null ? (styles.task) : (`${styles.task} ${styles.task_complete}`)}>
         <p className={styles.task__title}>{title}</p>
         <div className={styles.task__icons}>
           <img

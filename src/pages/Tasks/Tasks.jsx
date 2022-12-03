@@ -13,7 +13,7 @@ import {
 } from "../../services/reducers/boards";
 import { generateKeys } from "../../utils/generateKeys";
 import { Modal } from "../../components/Modal/Modal";
-import { openModal, setCurrentTask } from "../../services/reducers/modal";
+import { openModal, setCurrentBoard, setCurrentTask } from "../../services/reducers/modal";
 import { Reorder } from "framer-motion";
 import edit from "../../images/edit.svg";
 
@@ -186,9 +186,11 @@ export const Tasks = () => {
                       title={el.title}
                       id={el.id}
                       board={selectedBoard.key}
+                      status={el.endTime}
                       openModal={() => {
                         dispatch(openModal());
                         dispatch(setCurrentTask(el));
+                        dispatch(setCurrentBoard(selectedBoard));
                       }}
                     />
                   );

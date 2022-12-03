@@ -19,14 +19,10 @@
   top: 0;
   width: 60%;
   min-height: 100%;
-  /* padding: 20px; */
   background-color: #ecebe8;
 }
 
 .modal__header {
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* row-gap: 10px; */
   position: relative;
   padding: 20px 20px 10px 20px;
   border-bottom: 1px solid #000;
@@ -100,7 +96,6 @@
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   transition: opacity 0.2s linear;
   font: 900 14px/16px 'Inter', sans-serif;
-  text-shadow: 3px 3px 7px rgba(0, 0, 0, .4);
 }
 
 .modal__confirm:hover {
@@ -117,7 +112,7 @@
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   transition: opacity 0.2s linear;
   font: 900 14px/16px 'Inter', sans-serif;
-  text-shadow: 3px 3px 7px rgba(0, 0, 0, .4);
+  color: #fff;
 }
 
 .modal__cancel:hover {
@@ -170,10 +165,30 @@
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   transition: opacity 0.2s linear;
   font: 900 14px/16px 'Inter', sans-serif;
-  text-shadow: 3px 3px 7px rgba(0, 0, 0, .4);
+  color: #fff;
 }
 
 .modal__closeTaskButton:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.modal__activateTaskButton {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  background-color: rgb(11, 218, 81);
+  border: none;
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  transition: opacity 0.2s linear;
+  font: 900 16px/16px 'Inter', sans-serif;
+  color: #000;
+}
+
+.modal__activateTaskButton:hover {
   opacity: .6;
   cursor: pointer;
 }

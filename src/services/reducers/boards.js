@@ -5,6 +5,7 @@ import {
   CHANGE_BOARD_TITLE,
   REMOVE_BOARD,
   REMOVE_QUEUE_FROM_BOARD,
+  SET_TASK_END_TIME,
 } from "../actions/actions";
 
 const initialState = {
@@ -35,6 +36,7 @@ export const boards = (state = initialState, action) => {
         title: action.payload.title,
         date: action.payload.date,
         id: action.payload.id,
+        endTime: null,
       });
 
       return { ...state };
@@ -53,11 +55,21 @@ export const boards = (state = initialState, action) => {
       )[0];
       oneMoreBoard.status = action.payload.status;
       return { ...state };
-      case REMOVE_BOARD:
-        const removedBoard = state.boards.filter(
-          (el) => el.key !== action.payload.key
-        )[0];
-        return { ...state, boards: removedBoard}
+    case REMOVE_BOARD:
+      const removedBoard = state.boards.filter(
+        (el) => el.key !== action.payload.key
+      );
+      return { ...state, boards: removedBoard };
+    case SET_TASK_END_TIME:
+      const myBoardd = state.boards.filter(
+        (el) => el.key === action.payload.key
+      );
+      console.log(" myBoardd.queue", myBoardd.queue);
+      let myQueue = myBoardd.queue.filter(
+        (el) => el.id === action.payload.task.id
+      );
+      myQueue = action.payload.task;
+      return { ...state };
     default:
       return state;
   }
@@ -86,4 +98,8 @@ export const changeBoardStatus = (payload) => ({
 export const removeBoardAction = (payload) => ({
   type: REMOVE_BOARD,
   payload,
-})
+});
+export const setTaskEndTime = (payload) => ({
+  type: SET_TASK_END_TIME,
+  payload,
+});

@@ -121,6 +121,7 @@ textarea {
   border-radius: 10px;
   padding: 10px;
   border: none;
+  color: #fff;
   transition: opacity 0.2s linear;
 }
 

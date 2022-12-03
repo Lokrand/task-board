@@ -11,6 +11,10 @@
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
+.task_complete {
+  background-color: rgb(11, 218, 81);
+}
+
 .task__icons {
   display: flex;
   flex-direction: row; 
