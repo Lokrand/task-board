@@ -10,6 +10,7 @@ import {
   changeBoardStatus,
   changeBoardTitleAction,
   removeBoardAction,
+  reorderQueue,
 } from "../../services/reducers/boards";
 import { generateKeys } from "../../utils/generateKeys";
 import { Modal } from "../../components/Modal/Modal";
@@ -175,7 +176,7 @@ export const Tasks = () => {
               as="ol"
               axys="y"
               values={selectedBoard.queue}
-              // onReorder={addNewQueue}
+              onReorder={(newOrder) => {dispatch(reorderQueue({key: selectedBoard.key, queue: newOrder}))}}
             >
               <div className={styles.tasks__items}>
                 {selectedBoard.queue.map((el) => {

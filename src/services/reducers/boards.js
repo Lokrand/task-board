@@ -3,6 +3,7 @@ import {
   ADD_QUEUE_TO_BOARD,
   CHANGE_BOARD_STATUS,
   CHANGE_BOARD_TITLE,
+  QUEUE_REORDER,
   REMOVE_BOARD,
   REMOVE_QUEUE_FROM_BOARD,
   SET_TASK_END_TIME,
@@ -20,10 +21,21 @@ const removeEl = (state, type, key) => {
   return state;
 };
 
+const actionToFnMap = {
+  ADD_BOARD: (state, payload) => {
+    if (payload) {
+      state.boards.push(payload);
+      return { ...state, boards: state.boards };
+    }
+  },
+};
+
 export const boards = (state = initialState, action) => {
+  // const reducer = actionToFcMap[action.type]
+  // if (reducer) return reducer(state, action.payload)
+  // else return state
   switch (action.type) {
     case ADD_BOARD:
-      console.log(action);
       if (action.payload) {
         state.boards.push(action.payload);
         return { ...state, boards: state.boards };
@@ -42,7 +54,7 @@ export const boards = (state = initialState, action) => {
       return { ...state };
     case REMOVE_QUEUE_FROM_BOARD:
       const result = removeEl(state.boards, "queue", action.payload.id);
-      return { ...state, boards: result };
+      return { ...state, boards: [...result] };
     case CHANGE_BOARD_TITLE:
       const findBoard = state.boards.filter(
         (el) => el.key === action.payload.key
@@ -64,12 +76,18 @@ export const boards = (state = initialState, action) => {
       const myBoardd = state.boards.filter(
         (el) => el.key === action.payload.key
       );
-      console.log(" myBoardd.queue", myBoardd.queue);
       let myQueue = myBoardd.queue.filter(
         (el) => el.id === action.payload.task.id
       );
       myQueue = action.payload.task;
       return { ...state };
+    case QUEUE_REORDER:
+      const myBoarddd = state.boards.filter(
+        (el) => el.key === action.payload.key
+      )[0];
+        myBoarddd.queue = [...action.payload.queue]
+
+        return {...state, boards: [...state.boards]};
     default:
       return state;
   }
@@ -101,5 +119,9 @@ export const removeBoardAction = (payload) => ({
 });
 export const setTaskEndTime = (payload) => ({
   type: SET_TASK_END_TIME,
+  payload,
+});
+export const reorderQueue = (payload) => ({
+  type: QUEUE_REORDER,
   payload,
 });
