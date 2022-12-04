@@ -8,6 +8,7 @@ const SORT_BY_PRIORITY = "SORT_BY_PRIORITY";
 const REMOVE_QUEUE_BY_PRIORITY = "REMOVE_QUEUE_BY_PRIORITY";
 const SET_ENDTIME_QUEUE = "SET_ENDTIME_QUEUE";
 const REMOVE_ENDTIME_QUEUE = "REMOVE_ENDTIME_QUEUE";
+const SET_DESCRIPTION_QUEUE = "SET_DESCRIPTION_QUEUE";
 
 const initialState = {
   tasks: [],
@@ -74,6 +75,12 @@ export const queue = (state = initialState, action) => {
         )[0];
       if (taskEndd) taskEndd.endTime = null;
       return { ...state };
+    case SET_DESCRIPTION_QUEUE:
+      const taskDesc = state.tasks.filter(
+        (el) => el.id === action.payload.id
+        )[0];
+      taskDesc.description = action.payload.description;
+      return { ...state };
     default:
       return state;
   }
@@ -117,5 +124,9 @@ export const setEndTimeQueue = (payload) => ({
 });
 export const removeEndTimeQueue = (payload) => ({
   type: REMOVE_ENDTIME_QUEUE,
+  payload,
+});
+export const setDescriptionQueue = (payload) => ({
+  type: SET_DESCRIPTION_QUEUE,
   payload,
 });

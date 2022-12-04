@@ -5,6 +5,7 @@ import { queue } from "./queue";
 import { boards } from "./boards";
 import { modal } from "./modal";
 import { done } from "./done";
+import { development } from "./development";
 
 const persistConfig = {
   key: "root",
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   queue,
   boards,
   modal,
-  done
+  done,
+  development
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

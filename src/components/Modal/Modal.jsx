@@ -82,16 +82,24 @@ export const Modal = () => {
     const endTime = new Date();
     // task.endTime = endTime;
     // const endTime = new Date();
-    dispatch(setEndTimeQueue({id: task.id, endTime: endTime}))
-    dispatch(setEndTimeDone({id: task.id, endTime: endTime}))
+    if (task.status === 'queue') {
+      dispatch(setEndTimeQueue({id: task.id, endTime: endTime}))
+    } else if (task.status === 'done') {
+      dispatch(setEndTimeDone({id: task.id, endTime: endTime}))
+    } else {
+
+    }
     // dispatch(setTaskEndTime({ task: task, key: board.key }));
   };
   
   const activateTask = () => {
     setButtonEndTaskActive(true);
     // task.endTime = null;
-    dispatch(removeEndTimeQueue(task.id))
-    dispatch(removeEndTimeDone(task.id))
+    if (task.status === 'queue') {
+      dispatch(removeEndTimeQueue(task.id))
+    } else if (task.status === 'done') {
+      dispatch(removeEndTimeDone(task.id))
+    } else {}
     // dispatch(setTaskEndTime({ task: task, key: board.key }));
   };
 
@@ -123,6 +131,11 @@ export const Modal = () => {
     }
   }, [active]);
 
+  const setDescriptionText = () => {
+    dispatch(setDescriptionText({id: task.id, description: inputValue}))
+    setInputActive(false)
+  }
+
   return ReactDom.createPortal(
     <div className={styles.modal}>
       <div className={styles.modal__content}>
@@ -144,7 +157,7 @@ export const Modal = () => {
               <p className={styles.modal__date}>End at: {dateEndTask}</p>
             </div>
             <div className={styles.modal__status}>
-              <p>Status: {taskStatus}</p>
+              <p>Status: {task.status}</p>
               <div className={styles.modal__priority}>
                 <p
                   className={
@@ -194,6 +207,7 @@ export const Modal = () => {
         <div className={styles.modal__description}>
           <p className={styles.modal__descriptionTitle}>Description:</p>
           <div className={styles.modal__addDescriptionBlock}>
+            <p className={styles.modal__descriptionText}>{task.description}</p>
             {inputActive && (
               <>
                 <textarea
@@ -204,7 +218,7 @@ export const Modal = () => {
                   onChange={onChangeInput}
                 ></textarea>
                 <div className={styles.modal__buttons}>
-                  <button className={styles.modal__confirm}>Confirm</button>
+                  <button className={styles.modal__confirm} onClick={setDescriptionText}>Confirm</button>
                   <button className={styles.modal__cancel} onClick={goBack}>
                     Cancel
                   </button>

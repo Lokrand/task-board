@@ -26,34 +26,49 @@ import {
 } from "../../services/reducers/modal";
 import { Reorder, useUnmountEffect } from "framer-motion";
 import edit from "../../images/edit.svg";
+import { addDevelopmentTask } from "../../services/reducers/development";
 
 export const Tasks = () => {
-  const [addNewTask, setAddNewTask] = useState(false);
+  const [addNewTaskQueue, setAddNewTaskQueue] = useState(false);
+  const [addNewTaskDevelopment, setAddNewTaskDevelopment] = useState(false);
+  const [addNewTaskDone, setAddNewTaskDone] = useState(false);
   const [showAddButton, setShowAddButton] = useState(false);
   const [newQueue, setNewQueue] = useState();
   const [newQueueTitle, setNewQueueTitle] = useState("");
+  const [newDevelopmentTitle, setNewDevelopmentTitle] = useState("");
+  const [newDoneTitle, setNewDoneTitle] = useState("");
   const history = useLocation();
   const id = history.pathname.replace(/\/tasks\//g, "");
   const boards = useSelector((state) => state.boards.boards);
   const selectedBoard = boards.filter((el) => el.key === id)[0];
   const queueTasks = useSelector((state) => state.queue.tasks);
   const doneTasks = useSelector((state) => state.done.tasks);
+  const developmentTasks = useSelector((state) => state.development.tasks);
   const queueListForSelectedBoard = queueTasks.filter(
     (el) => el.key === selectedBoard.key
   );
   const doneListForSelectedBoard = doneTasks.filter(
     (el) => el.key === selectedBoard.key
   );
-  // console.log('queueTasks', queueTasks)
+  const developmentListForSelectedBoard = developmentTasks.filter(
+    (el) => el.key === selectedBoard.key
+  );
+
+  console.log("developmentTasks", developmentTasks);
+  console.log(
+    "developmentListForSelectedBoard",
+    developmentListForSelectedBoard
+  );
   const active = useSelector((state) => state.modal.active);
   const [showInputTitle, setShowInputTitle] = useState(false);
   const [changeInputTitleValue, setChangeInputTitleValue] = useState("");
   const dispatch = useDispatch();
 
-  
-
   const onClick = () => {
-    setAddNewTask(true);
+    setAddNewTaskQueue(true);
+  };
+  const showInputAddNewDevelopment = () => {
+    setAddNewTaskDevelopment(true);
   };
 
   const onChange = (e) => {
@@ -66,25 +81,26 @@ export const Tasks = () => {
     }
   };
 
+  const onChangeDevelopmentInput = (e) => {
+    if (e.target.value.length > 0) {
+      setShowAddButton(true);
+      setNewDevelopmentTitle(e.target.value);
+    }
+    if (e.target.value.length === 0) {
+      setShowAddButton(false);
+    }
+  };
   const closeInput = () => {
-    setAddNewTask(false);
+    setAddNewTaskQueue(false);
+  };
+  const closeDevelopmentInput = () => {
+    setAddNewTaskDevelopment(false);
   };
 
-  // useEffect(() => {
-  //   dispatch(AddNewQueueTask(newQueue));
-  // }, [newQueue]);
 
   const time = new Date();
 
   const addNewQueue = () => {
-    dispatch(
-      addQueueToBoard({
-        key: selectedBoard.key,
-        title: newQueueTitle,
-        date: time,
-        id: generateKeys(),
-      })
-    );
     dispatch(
       AddNewQueueTask({
         key: selectedBoard.key,
@@ -94,16 +110,38 @@ export const Tasks = () => {
         endTime: null,
         description: "",
         priority: "low",
+        status: "queue",
         number: 0,
         subtasks: [],
         comments: [],
+        subComments: [],
       })
     );
     setNewQueue({
       time: time,
       title: newQueueTitle,
     });
-    setAddNewTask(false);
+    setAddNewTaskQueue(false);
+  };
+
+  const addNewDevelopment = () => {
+    dispatch(
+      addDevelopmentTask({
+        key: selectedBoard.key,
+        title: newDevelopmentTitle,
+        date: time,
+        id: generateKeys(),
+        endTime: null,
+        description: "",
+        priority: "low",
+        status: "development",
+        number: 0,
+        subtasks: [],
+        comments: [],
+        subComments: [],
+      })
+    );
+    setAddNewTaskDevelopment(false);
   };
 
   const changeBoardTitle = () => {
@@ -231,7 +269,7 @@ export const Tasks = () => {
                   );
                 })}
 
-                {addNewTask && (
+                {addNewTaskQueue && (
                   <>
                     <textarea
                       className={styles.tasks__input}
@@ -273,13 +311,60 @@ export const Tasks = () => {
               // onReorder={setItem}
             >
               <div className={styles.tasks__items}>
-                {selectedBoard.developments.map((el) => {
-                  return <Task title={el} />;
+                {developmentListForSelectedBoard.map((el) => {
+                  return (
+                    <Task
+                      key={el.id}
+                      el={el}
+                      title={el.title}
+                      id={el.id}
+                      board={selectedBoard.key}
+                      status={el.endTime}
+                      priority={el.priority}
+                      openModal={() => {
+                        dispatch(openModal());
+                        dispatch(setCurrentTask(el));
+                        dispatch(setCurrentBoard(selectedBoard));
+                      }}
+                    />
+                  );
                 })}
+                {addNewTaskDevelopment && (
+                  <>
+                    <textarea
+                      className={styles.tasks__input}
+                      rows="1"
+                      placeholder="Enter the name of the new task..."
+                      id="textName"
+                      onChange={onChangeDevelopmentInput}
+                    ></textarea>
+                    {showAddButton && (
+                      <div className={styles.tasks__cancel}>
+                        <button
+                          className={styles.tasks_addNewTaskButton}
+                          onClick={addNewDevelopment}
+                        >
+                          Add a task
+                        </button>
+                        <img
+                          src={cross}
+                          alt="cross"
+                          className={styles.tasks__cross}
+                          onClick={closeDevelopmentInput}
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             </Reorder.Group>
 
-            <button className={styles.tasks__button}>Add a new task...</button>
+            <button
+              className={styles.tasks__button}
+              onClick={showInputAddNewDevelopment}
+            >
+              Add a new task...
+            </button>
           </div>
           <div className={styles.tasks__column}>
             <h3 className={styles.tasks__taskName}>Done</h3>
@@ -304,7 +389,7 @@ export const Tasks = () => {
                         dispatch(openModal());
                         dispatch(setCurrentTask(el));
                         dispatch(setCurrentBoard(selectedBoard));
-                        console.log('mytask in tasks', el)
+                        console.log("mytask in tasks", el);
                       }}
                     />
                   );
