@@ -19,7 +19,7 @@ import {
   setEndTimeQueue,
   sortByPriority,
 } from "../../services/reducers/queue";
-import { addCompletedTask, removeCompletedTask } from "../../services/reducers/done";
+import { addCompletedTask, removeCompletedTask, removeEndTimeDone, setEndTimeDone } from "../../services/reducers/done";
 
 export const Modal = () => {
   const [inputActive, setInputActive] = useState(false);
@@ -67,10 +67,10 @@ export const Modal = () => {
   };
   
   const closeModal = () => {
-    console.log(task.priority)
     if (task.endTime === null) {
       dispatch(removeCompletedTask(task.id));
     } else {
+      console.log('task', task)
       dispatch(addCompletedTask(task))
       dispatch(removeQueueByPriority(task.id));
     }
@@ -83,6 +83,7 @@ export const Modal = () => {
     // task.endTime = endTime;
     // const endTime = new Date();
     dispatch(setEndTimeQueue({id: task.id, endTime: endTime}))
+    dispatch(setEndTimeDone({id: task.id, endTime: endTime}))
     // dispatch(setTaskEndTime({ task: task, key: board.key }));
   };
   
@@ -90,6 +91,7 @@ export const Modal = () => {
     setButtonEndTaskActive(true);
     // task.endTime = null;
     dispatch(removeEndTimeQueue(task.id))
+    dispatch(removeEndTimeDone(task.id))
     // dispatch(setTaskEndTime({ task: task, key: board.key }));
   };
 

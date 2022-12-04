@@ -71,8 +71,8 @@ export const queue = (state = initialState, action) => {
     case REMOVE_ENDTIME_QUEUE:
       const taskEndd = state.tasks.filter(
         (el) => el.id === action.payload
-      )[0];
-      taskEndd.endTime = "";
+        )[0];
+      if (taskEndd) taskEndd.endTime = null;
       return { ...state };
     default:
       return state;

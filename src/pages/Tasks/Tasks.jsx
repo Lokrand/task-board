@@ -304,6 +304,7 @@ export const Tasks = () => {
                         dispatch(openModal());
                         dispatch(setCurrentTask(el));
                         dispatch(setCurrentBoard(selectedBoard));
+                        console.log('mytask in tasks', el)
                       }}
                     />
                   );
