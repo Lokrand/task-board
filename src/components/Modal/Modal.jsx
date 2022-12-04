@@ -19,7 +19,12 @@ import {
   setEndTimeQueue,
   sortByPriority,
 } from "../../services/reducers/queue";
-import { addCompletedTask, removeCompletedTask, removeEndTimeDone, setEndTimeDone } from "../../services/reducers/done";
+import {
+  addCompletedTask,
+  removeCompletedTask,
+  removeEndTimeDone,
+  setEndTimeDone,
+} from "../../services/reducers/done";
 
 export const Modal = () => {
   const [inputActive, setInputActive] = useState(false);
@@ -65,13 +70,13 @@ export const Modal = () => {
   const onChangeInput = (e) => {
     setInputValue(e.target.value);
   };
-  
+
   const closeModal = () => {
     if (task.endTime === null) {
       dispatch(removeCompletedTask(task.id));
     } else {
-      console.log('task', task)
-      dispatch(addCompletedTask(task))
+      console.log("task", task);
+      dispatch(addCompletedTask(task));
       dispatch(removeQueueByPriority(task.id));
     }
     dispatch(closeModalAction());
@@ -82,24 +87,24 @@ export const Modal = () => {
     const endTime = new Date();
     // task.endTime = endTime;
     // const endTime = new Date();
-    if (task.status === 'queue') {
-      dispatch(setEndTimeQueue({id: task.id, endTime: endTime}))
-    } else if (task.status === 'done') {
-      dispatch(setEndTimeDone({id: task.id, endTime: endTime}))
+    if (task.status === "queue") {
+      dispatch(setEndTimeQueue({ id: task.id, endTime: endTime }));
+    } else if (task.status === "done") {
+      dispatch(setEndTimeDone({ id: task.id, endTime: endTime }));
     } else {
-
     }
     // dispatch(setTaskEndTime({ task: task, key: board.key }));
   };
-  
+
   const activateTask = () => {
     setButtonEndTaskActive(true);
     // task.endTime = null;
-    if (task.status === 'queue') {
-      dispatch(removeEndTimeQueue(task.id))
-    } else if (task.status === 'done') {
-      dispatch(removeEndTimeDone(task.id))
-    } else {}
+    if (task.status === "queue") {
+      dispatch(removeEndTimeQueue(task.id));
+    } else if (task.status === "done") {
+      dispatch(removeEndTimeDone(task.id));
+    } else {
+    }
     // dispatch(setTaskEndTime({ task: task, key: board.key }));
   };
 
@@ -111,16 +116,14 @@ export const Modal = () => {
       dispatch(changeTaskPriorityLow(task.id));
       setPriority("low");
     }
-    dispatch(sortByPriority())
+    dispatch(sortByPriority());
   };
 
-  
-  
   useEffect(() => {
     function closeByEscape(evt) {
       if (evt.key === "Escape") {
         dispatch(closeModalAction());
-        closeModal()
+        closeModal();
       }
     }
     if (active) {
@@ -132,9 +135,11 @@ export const Modal = () => {
   }, [active]);
 
   const setDescriptionText = () => {
-    dispatch(setDescriptionText({id: task.id, description: inputValue}))
-    setInputActive(false)
-  }
+    setInputActive(false);
+
+    console.log(inputValue)
+    dispatch(setDescriptionText({ id: task.id, description: inputValue }));
+  };
 
   return ReactDom.createPortal(
     <div className={styles.modal}>
@@ -218,7 +223,12 @@ export const Modal = () => {
                   onChange={onChangeInput}
                 ></textarea>
                 <div className={styles.modal__buttons}>
-                  <button className={styles.modal__confirm} onClick={setDescriptionText}>Confirm</button>
+                  <button
+                    className={styles.modal__confirm}
+                    onClick={setDescriptionText}
+                  >
+                    Confirm
+                  </button>
                   <button className={styles.modal__cancel} onClick={goBack}>
                     Cancel
                   </button>

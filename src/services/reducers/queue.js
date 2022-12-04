@@ -79,6 +79,7 @@ export const queue = (state = initialState, action) => {
       const taskDesc = state.tasks.filter(
         (el) => el.id === action.payload.id
         )[0];
+        console.lof(action.payload.description)
       taskDesc.description = action.payload.description;
       return { ...state };
     default:
