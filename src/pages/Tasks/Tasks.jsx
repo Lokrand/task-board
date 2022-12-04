@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import styles from "./Tasks.module.css";
 import cross from "../../images/cross.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { AddNewQueueTask } from "../../services/reducers/queue";
+import {
+  AddNewQueueTask,
+  getReorderQueue,
+  sortByPriority,
+} from "../../services/reducers/queue";
 import { Task } from "../../components/Task/Task";
 import { NavLink, useLocation } from "react-router-dom";
 import {
@@ -14,8 +18,13 @@ import {
 } from "../../services/reducers/boards";
 import { generateKeys } from "../../utils/generateKeys";
 import { Modal } from "../../components/Modal/Modal";
-import { openModal, setCurrentBoard, setCurrentTask } from "../../services/reducers/modal";
-import { Reorder } from "framer-motion";
+import {
+  closeModalAction,
+  openModal,
+  setCurrentBoard,
+  setCurrentTask,
+} from "../../services/reducers/modal";
+import { Reorder, useUnmountEffect } from "framer-motion";
 import edit from "../../images/edit.svg";
 
 export const Tasks = () => {
@@ -23,18 +32,25 @@ export const Tasks = () => {
   const [showAddButton, setShowAddButton] = useState(false);
   const [newQueue, setNewQueue] = useState();
   const [newQueueTitle, setNewQueueTitle] = useState("");
-  const queueTasks = useSelector((state) => state.queue.tasks);
   const history = useLocation();
   const id = history.pathname.replace(/\/tasks\//g, "");
   const boards = useSelector((state) => state.boards.boards);
   const selectedBoard = boards.filter((el) => el.key === id)[0];
+  const queueTasks = useSelector((state) => state.queue.tasks);
+  const doneTasks = useSelector((state) => state.done.tasks);
+  const queueListForSelectedBoard = queueTasks.filter(
+    (el) => el.key === selectedBoard.key
+  );
+  const doneListForSelectedBoard = doneTasks.filter(
+    (el) => el.key === selectedBoard.key
+  );
+  // console.log('queueTasks', queueTasks)
   const active = useSelector((state) => state.modal.active);
   const [showInputTitle, setShowInputTitle] = useState(false);
   const [changeInputTitleValue, setChangeInputTitleValue] = useState("");
-
-  // console.log("selectedBoard", selectedBoard);
-
   const dispatch = useDispatch();
+
+  
 
   const onClick = () => {
     setAddNewTask(true);
@@ -54,9 +70,9 @@ export const Tasks = () => {
     setAddNewTask(false);
   };
 
-  useEffect(() => {
-    dispatch(AddNewQueueTask(newQueue));
-  }, [newQueue]);
+  // useEffect(() => {
+  //   dispatch(AddNewQueueTask(newQueue));
+  // }, [newQueue]);
 
   const time = new Date();
 
@@ -67,6 +83,20 @@ export const Tasks = () => {
         title: newQueueTitle,
         date: time,
         id: generateKeys(),
+      })
+    );
+    dispatch(
+      AddNewQueueTask({
+        key: selectedBoard.key,
+        title: newQueueTitle,
+        date: time,
+        id: generateKeys(),
+        endTime: null,
+        description: "",
+        priority: "low",
+        number: 0,
+        subtasks: [],
+        comments: [],
       })
     );
     setNewQueue({
@@ -176,10 +206,13 @@ export const Tasks = () => {
               as="ol"
               axys="y"
               values={selectedBoard.queue}
-              onReorder={(newOrder) => {dispatch(reorderQueue({key: selectedBoard.key, queue: newOrder}))}}
+              onReorder={(newOrder) => {
+                dispatch(getReorderQueue(newOrder));
+              }}
+              // onReorder={(newOrder) => {dispatch(reorderQueue({key: selectedBoard.key, queue: newOrder}))}}
             >
               <div className={styles.tasks__items}>
-                {selectedBoard.queue.map((el) => {
+                {queueListForSelectedBoard.map((el) => {
                   return (
                     <Task
                       key={el.id}
@@ -188,6 +221,7 @@ export const Tasks = () => {
                       id={el.id}
                       board={selectedBoard.key}
                       status={el.endTime}
+                      priority={el.priority}
                       openModal={() => {
                         dispatch(openModal());
                         dispatch(setCurrentTask(el));
@@ -256,8 +290,23 @@ export const Tasks = () => {
               // onReorder={setItem}
             >
               <div className={styles.tasks__items}>
-                {selectedBoard.done.map((el) => {
-                  return <Task title={el} />;
+                {doneListForSelectedBoard.map((el) => {
+                  return (
+                    <Task
+                      key={el.id}
+                      el={el}
+                      title={el.title}
+                      id={el.id}
+                      board={selectedBoard.key}
+                      status={el.endTime}
+                      priority={el.priority}
+                      openModal={() => {
+                        dispatch(openModal());
+                        dispatch(setCurrentTask(el));
+                        dispatch(setCurrentBoard(selectedBoard));
+                      }}
+                    />
+                  );
                 })}
               </div>
             </Reorder.Group>

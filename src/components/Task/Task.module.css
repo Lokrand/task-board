@@ -11,8 +11,16 @@
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
+.task::marker {
+  display: none;
+}
+
 .task_complete {
   background-color: rgb(11, 218, 81);
+}
+
+.task_highPriority {
+  background-color: blue;
 }
 
 .task__icons {
@@ -34,4 +42,7 @@
 
 .task__title {
   max-width: 300px;
+}
+li::marker {
+  display: none;
 }

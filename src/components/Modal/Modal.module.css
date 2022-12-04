@@ -95,7 +95,7 @@
   border-radius: 10px;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   transition: opacity 0.2s linear;
-  font: 900 14px/16px 'Inter', sans-serif;
+  font: 900 14px/16px "Inter", sans-serif;
 }
 
 .modal__confirm:hover {
@@ -111,7 +111,7 @@
   border-radius: 10px;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   transition: opacity 0.2s linear;
-  font: 900 14px/16px 'Inter', sans-serif;
+  font: 900 14px/16px "Inter", sans-serif;
   color: #fff;
 }
 
@@ -126,26 +126,26 @@
   right: 30px;
   height: 22px;
   width: 22px;
-  transition: opacity .2s linear;
+  transition: opacity 0.2s linear;
 }
 
 .modal__cross:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
 
- .modal__status {
+.modal__status {
   display: flex;
   flex-direction: column;
   row-gap: 20px;
   font: 500 16px/18px "Inter", sans-serif;
-} 
+}
 
 .modal__statuts {
   display: flex;
   flex-direction: row;
   column-gap: 50px;
-} 
+}
 
 .modal__block {
   display: flex;
@@ -164,12 +164,12 @@
   border-radius: 10px;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   transition: opacity 0.2s linear;
-  font: 900 14px/16px 'Inter', sans-serif;
+  font: 900 14px/16px "Inter", sans-serif;
   color: #fff;
 }
 
 .modal__closeTaskButton:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
 
@@ -184,11 +184,43 @@
   border-radius: 10px;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   transition: opacity 0.2s linear;
-  font: 900 16px/16px 'Inter', sans-serif;
+  font: 900 16px/16px "Inter", sans-serif;
   color: #000;
 }
 
 .modal__activateTaskButton:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
+
+.modal__priority {
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+}
+
+.modal__changePriority {
+  display: flex;
+  flex-direction: row;
+  column-gap: 5px;
+  color: blue;
+  transition: opacity 0.2s linear;
+}
+
+.modal__changePriority_active {
+  color: red;
+}
+
+.modal__changePriority:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.modal__priorityStatus {
+  color: red;
+}
+
+.modal__priorityStatus_active {
+  color: blue;
+}
+

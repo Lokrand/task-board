@@ -73,13 +73,13 @@ export const boards = (state = initialState, action) => {
       );
       return { ...state, boards: removedBoard };
     case SET_TASK_END_TIME:
-      const myBoardd = state.boards.filter(
-        (el) => el.key === action.payload.key
-      );
-      let myQueue = myBoardd.queue.filter(
-        (el) => el.id === action.payload.task.id
-      );
-      myQueue = action.payload.task;
+      // const myBoardd = state.boards.filter(
+      //   (el) => el.key === action.payload.key
+      // );
+      // let myQueue = myBoardd.queue.filter(
+      //   (el) => el.id === action.payload.task.id
+      // );
+      // myQueue = action.payload.task;
       return { ...state };
     case QUEUE_REORDER:
       const myBoarddd = state.boards.filter(

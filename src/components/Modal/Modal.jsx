@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Modal.module.css";
 import cross from "../../images/cross.svg";
 import ReactDom from "react-dom";
@@ -10,15 +10,26 @@ import {
 import { getDate } from "../../utils/date";
 import Moment from "react-moment";
 import { setTaskEndTime } from "../../services/reducers/boards";
+import { ArrowPriority } from "../../icons/ArrowPriority";
+import {
+  changeTaskPriorityHigh,
+  changeTaskPriorityLow,
+  removeEndTimeQueue,
+  removeQueueByPriority,
+  setEndTimeQueue,
+  sortByPriority,
+} from "../../services/reducers/queue";
+import { addCompletedTask, removeCompletedTask } from "../../services/reducers/done";
 
 export const Modal = () => {
   const [inputActive, setInputActive] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [buttonEndTaskActive, setButtonEndTaskActive] = useState(true)
+  const [buttonEndTaskActive, setButtonEndTaskActive] = useState(true);
+  const [priority, setPriority] = useState("low");
   const active = useSelector((state) => state.modal.active);
   const task = useSelector((state) => state.modal.currentTask);
   const board = useSelector((state) => state.modal.currentBoard);
-  let dateEndTask = 'In progress'
+  let dateEndTask = "In progress";
   if (task.endTime) dateEndTask = getDate(task.endTime);
 
   let findStatus;
@@ -40,10 +51,10 @@ export const Modal = () => {
     timeInProgressArr = task.date.split(":");
     timeInprogress = `${timeInProgressArr[0]}:${timeInProgressArr[1]}-0000`;
   }
-  console.log("timeInprogress", timeInprogress);
-  console.log(task.date);
-  console.log("board", board);
-  console.log("task", task);
+  // console.log("timeInprogress", timeInprogress);
+  // console.log(task.date);
+  // console.log("board", board);
+  // console.log("task", task);
   const dispatch = useDispatch();
   const addDescription = () => {
     setInputActive(true);
@@ -54,23 +65,61 @@ export const Modal = () => {
   const onChangeInput = (e) => {
     setInputValue(e.target.value);
   };
-
+  
   const closeModal = () => {
+    console.log(task.priority)
+    if (task.endTime === null) {
+      dispatch(removeCompletedTask(task.id));
+    } else {
+      dispatch(addCompletedTask(task))
+      dispatch(removeQueueByPriority(task.id));
+    }
     dispatch(closeModalAction());
     dispatch(setCurrentTask([]));
   };
   const closeTask = () => {
-    setButtonEndTaskActive(false)
-    const endTime = new Date()
-    task.endTime = endTime;
-    dispatch(setTaskEndTime({task: task, key: board.key}))
-  }
-
+    setButtonEndTaskActive(false);
+    const endTime = new Date();
+    // task.endTime = endTime;
+    // const endTime = new Date();
+    dispatch(setEndTimeQueue({id: task.id, endTime: endTime}))
+    // dispatch(setTaskEndTime({ task: task, key: board.key }));
+  };
+  
   const activateTask = () => {
-    setButtonEndTaskActive(true)
-    task.endTime = null;
-    dispatch(setTaskEndTime({task: task, key: board.key}))
-  }
+    setButtonEndTaskActive(true);
+    // task.endTime = null;
+    dispatch(removeEndTimeQueue(task.id))
+    // dispatch(setTaskEndTime({ task: task, key: board.key }));
+  };
+
+  const changePriority = () => {
+    if (task.priority === "low") {
+      dispatch(changeTaskPriorityHigh(task.id));
+      setPriority("high");
+    } else {
+      dispatch(changeTaskPriorityLow(task.id));
+      setPriority("low");
+    }
+    dispatch(sortByPriority())
+  };
+
+  
+  
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if (evt.key === "Escape") {
+        dispatch(closeModalAction());
+        closeModal()
+      }
+    }
+    if (active) {
+      document.addEventListener("keydown", closeByEscape);
+      return () => {
+        document.removeEventListener("keydown", closeByEscape);
+      };
+    }
+  }, [active]);
 
   return ReactDom.createPortal(
     <div className={styles.modal}>
@@ -94,7 +143,28 @@ export const Modal = () => {
             </div>
             <div className={styles.modal__status}>
               <p>Status: {taskStatus}</p>
-              <p>Priority: </p>
+              <div className={styles.modal__priority}>
+                <p
+                  className={
+                    task.priority === "low"
+                      ? styles.modal__priorityStatus
+                      : `${styles.modal__priorityStatus} ${styles.modal__priorityStatus_active}`
+                  }
+                >
+                  Priority: {task.priority}
+                </p>
+                <div
+                  className={
+                    task.priority === "low"
+                      ? styles.modal__changePriority
+                      : `${styles.modal__changePriority} ${styles.modal__changePriority_active}`
+                  }
+                  onClick={changePriority}
+                >
+                  <ArrowPriority priority={task.priority} />
+                  <p>{task.priority === "low" ? "Upgrade" : "Lower"}</p>
+                </div>
+              </div>
             </div>
           </div>
           <img
@@ -103,12 +173,18 @@ export const Modal = () => {
             className={styles.modal__cross}
             onClick={closeModal}
           />
-          {buttonEndTaskActive ? (
-            <button className={styles.modal__closeTaskButton} onClick={closeTask}>
+          {task.endTime === null ? (
+            <button
+              className={styles.modal__closeTaskButton}
+              onClick={closeTask}
+            >
               Finish the task
             </button>
           ) : (
-            <button className={styles.modal__activateTaskButton} onClick={activateTask}>
+            <button
+              className={styles.modal__activateTaskButton}
+              onClick={activateTask}
+            >
               Activate
             </button>
           )}
