@@ -14,8 +14,10 @@ import { ArrowPriority } from "../../icons/ArrowPriority";
 import {
   changeTaskPriorityHigh,
   changeTaskPriorityLow,
+  changeTitleQueue,
   removeEndTimeQueue,
   removeQueueByPriority,
+  setDescriptionQueue,
   setEndTimeQueue,
   sortByPriority,
 } from "../../services/reducers/queue";
@@ -29,6 +31,8 @@ import {
 export const Modal = () => {
   const [inputActive, setInputActive] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [showInputChangeTitle, setShowInputChangeTitle] = useState(false);
+  const [valueInputChangeTitle, setValueInputChangeTitle] = useState("");
   const [buttonEndTaskActive, setButtonEndTaskActive] = useState(true);
   const [priority, setPriority] = useState("low");
   const active = useSelector((state) => state.modal.active);
@@ -135,10 +139,22 @@ export const Modal = () => {
   }, [active]);
 
   const setDescriptionText = () => {
+    dispatch(setDescriptionQueue({ id: task.id, description: inputValue }));
     setInputActive(false);
+  };
 
-    console.log(inputValue)
-    dispatch(setDescriptionText({ id: task.id, description: inputValue }));
+  const changeTitle = () => {
+    dispatch(changeTitleQueue({ id: task.id, title: valueInputChangeTitle }));
+    setShowInputChangeTitle(false);
+  };
+  const showChangeTitleInput = () => {
+    setShowInputChangeTitle(true);
+  };
+  const hideChangeTitleInput = () => {
+    setShowInputChangeTitle(false);
+  };
+  const changeTitleText = (e) => {
+    setValueInputChangeTitle(e.target.value);
   };
 
   return ReactDom.createPortal(
@@ -148,8 +164,43 @@ export const Modal = () => {
           <div className={styles.modal__statuts}>
             <div className={styles.modal__block}>
               <div className={styles.modal__title}>
-                <p>#2 - </p>
-                <p>{task.title}</p>
+                <p>#2</p>
+                <div>
+                  {showInputChangeTitle ? (
+                    <div>
+                      <textarea
+                        name=""
+                        id=""
+                        cols="30"
+                        rows="5"
+                        placeholder={task.title}
+                        className={styles.modal__changeTitleInput}
+                        onChange={changeTitleText}
+                      ></textarea>
+                      <div className={styles.modal__blockChangeTitle}>
+                        <button
+                          className={styles.modal__changeTitleButton}
+                          onClick={changeTitle}
+                        >
+                          Set title
+                        </button>
+                        <img
+                          src={cross}
+                          alt="cross"
+                          className={styles.modal__hideInputChangeTitleCross}
+                          onClick={hideChangeTitleInput}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <p
+                      onClick={showChangeTitleInput}
+                      className={styles.modal__titleText}
+                    >
+                      {task.title}
+                    </p>
+                  )}
+                </div>
               </div>
               <p className={styles.modal__date}>Created at: {date}</p>
 
@@ -240,10 +291,15 @@ export const Modal = () => {
                 className={styles.modal__descriptionButton}
                 onClick={addDescription}
               >
-                Add description
+                {task.description !== ""
+                  ? "Change description"
+                  : "Add description"}
               </button>
             )}
           </div>
+        </div>
+        <div className={styles.modal__comments}>
+          <button>Add comment</button>  
         </div>
       </div>
     </div>,

@@ -9,6 +9,7 @@ const REMOVE_QUEUE_BY_PRIORITY = "REMOVE_QUEUE_BY_PRIORITY";
 const SET_ENDTIME_QUEUE = "SET_ENDTIME_QUEUE";
 const REMOVE_ENDTIME_QUEUE = "REMOVE_ENDTIME_QUEUE";
 const SET_DESCRIPTION_QUEUE = "SET_DESCRIPTION_QUEUE";
+const CHANGE_TITLE = "CHANGE_TITLE";
 
 const initialState = {
   tasks: [],
@@ -70,17 +71,20 @@ export const queue = (state = initialState, action) => {
       taskEnd.endTime = action.payload.endTime;
       return { ...state };
     case REMOVE_ENDTIME_QUEUE:
-      const taskEndd = state.tasks.filter(
-        (el) => el.id === action.payload
-        )[0];
+      const taskEndd = state.tasks.filter((el) => el.id === action.payload)[0];
       if (taskEndd) taskEndd.endTime = null;
       return { ...state };
     case SET_DESCRIPTION_QUEUE:
       const taskDesc = state.tasks.filter(
         (el) => el.id === action.payload.id
-        )[0];
-        console.lof(action.payload.description)
+      )[0];
       taskDesc.description = action.payload.description;
+      return { ...state };
+    case CHANGE_TITLE:
+      const taskTitl = state.tasks.filter(
+        (el) => el.id === action.payload.id
+      )[0];
+      taskTitl.title = action.payload.title;
       return { ...state };
     default:
       return state;
@@ -129,5 +133,9 @@ export const removeEndTimeQueue = (payload) => ({
 });
 export const setDescriptionQueue = (payload) => ({
   type: SET_DESCRIPTION_QUEUE,
+  payload,
+});
+export const changeTitleQueue = (payload) => ({
+  type: CHANGE_TITLE,
   payload,
 });

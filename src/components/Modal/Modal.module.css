@@ -29,8 +29,10 @@
 }
 
 .modal__title {
+  max-width: 300px;
   display: flex;
   flex-direction: row;
+  column-gap: 20px;
   font: 900 26px/26px "Inter", sans-serif;
 }
 
@@ -54,7 +56,7 @@
   background-color: orange;
   border: none;
   border-radius: 10px;
-  font: 400 14px/16px "Inter", sans-serif;
+  font: 500 14px/16px "Inter", sans-serif;
   transition: opacity 0.2s linear;
 }
 
@@ -224,3 +226,60 @@
   color: blue;
 }
 
+.modal__changeTitleButton {
+  background-color: rgb(11, 218, 81);
+  border: none;
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  transition: opacity 0.2s linear;
+  font: 900 16px/16px "Inter", sans-serif;
+  color: #000;
+}
+
+.modal__changeTitleButton:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.modal__hideInputChangeTitleCross {
+  height: 22px;
+  width: 22px;
+  transition: opacity 0.2s linear;
+}
+
+.modal__hideInputChangeTitleCross:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.modal__blockChangeTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.modal__changeTitleInput {
+  max-width: 260px;
+  font: 500 26px/26px "Inter", sans-serif;
+}
+
+.modal__changeTitleInput::-webkit-scrollbar {
+  display: none;
+}
+
+
+.modal__titleText {
+  transition: opacity .2s linear;
+}
+
+.modal__titleText:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.modal__descriptionText {
+  font: 500 16px/18px "Inter", sans-serif;
+}
