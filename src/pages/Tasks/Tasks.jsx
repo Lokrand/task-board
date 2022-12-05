@@ -396,7 +396,6 @@ export const Tasks = () => {
                 })}
               </div>
             </Reorder.Group>
-            <button className={styles.tasks__button}>Add a new task...</button>
           </div>
         </div>
       </section>

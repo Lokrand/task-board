@@ -60,6 +60,7 @@ export const Modal = () => {
     timeInProgressArr = task.date.split(":");
     timeInprogress = `${timeInProgressArr[0]}:${timeInProgressArr[1]}-0000`;
   }
+  console.log(task.date)
   // console.log("timeInprogress", timeInprogress);
   // console.log(task.date);
   // console.log("board", board);
