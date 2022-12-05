@@ -8,23 +8,28 @@ import { Reorder } from "framer-motion";
 import { getDefaultCompilerOptions } from "typescript";
 import { removeCompletedTask } from "../../services/reducers/done";
 import { removeQueue } from "../../services/reducers/queue";
+import { removeDevelopment } from "../../services/reducers/development";
 
 export const Task = ({
   el,
   title,
   id,
-  boardKey,
   openModal,
   status,
   priority,
+  onBoard,
 }) => {
   const dispatch = useDispatch();
-  const [modalActive, setModalActive] = useState(false);
-  const task = useSelector((state) => state.modal.currentTask);
-
+  console.log(onBoard)
   const removeTask = () => {
-    dispatch(removeQueue(id));
-    dispatch(removeCompletedTask(id));
+    if (onBoard === 'queue') {
+      dispatch(removeQueue(id));
+      dispatch(removeCompletedTask(id));
+    } else if (onBoard === 'development') {
+      dispatch(removeDevelopment(id))
+    } else {
+      dispatch(removeCompletedTask(id));
+    }
   };
 
   const setBgColor = (status, priority) => {
@@ -35,7 +40,6 @@ export const Task = ({
     } else return styles.task;
   };
 
-  // status === null  ? (styles.task) : (`${styles.task} ${styles.task_complete}`)
   return (
     <Reorder.Item
       value={el}

@@ -257,9 +257,9 @@ export const Tasks = () => {
                       el={el}
                       title={el.title}
                       id={el.id}
-                      board={selectedBoard.key}
                       status={el.endTime}
                       priority={el.priority}
+                      onBoard={el.status}
                       openModal={() => {
                         dispatch(openModal());
                         dispatch(setCurrentTask(el));
@@ -318,9 +318,9 @@ export const Tasks = () => {
                       el={el}
                       title={el.title}
                       id={el.id}
-                      board={selectedBoard.key}
                       status={el.endTime}
                       priority={el.priority}
+                      onBoard={el.status}
                       openModal={() => {
                         dispatch(openModal());
                         dispatch(setCurrentTask(el));
@@ -382,9 +382,9 @@ export const Tasks = () => {
                       el={el}
                       title={el.title}
                       id={el.id}
-                      board={selectedBoard.key}
                       status={el.endTime}
                       priority={el.priority}
+                      onBoard={el.status}
                       openModal={() => {
                         dispatch(openModal());
                         dispatch(setCurrentTask(el));
