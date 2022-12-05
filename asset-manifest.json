@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "./static/css/main.00f77b66.css",
+    "main.js": "./static/js/main.b7a1e830.js",
+    "static/media/Inter-Medium.woff": "./static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "./static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff": "./static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2": "./static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "./static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2": "./static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/edit.svg": "./static/media/edit.ad0007c647a9a69578c6cb1a62f7b7d4.svg",
+    "static/media/logoTB.svg": "./static/media/logoTB.642c6b017d37214dbf175a0f45f59dd3.svg",
+    "static/media/remove.svg": "./static/media/remove.5da60e2f03bd396a416aa6e37ae73e39.svg",
+    "static/media/cross.svg": "./static/media/cross.29ec9bc275300d2e223d2cc3c94356c8.svg",
+    "index.html": "./index.html",
+    "main.00f77b66.css.map": "./static/css/main.00f77b66.css.map",
+    "main.b7a1e830.js.map": "./static/js/main.b7a1e830.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.00f77b66.css",
+    "static/js/main.b7a1e830.js"
+  ]
+}
