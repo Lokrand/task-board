@@ -251,7 +251,7 @@ export const Tasks = () => {
           <div className={styles.tasks__boardStatus}>
             {selectedBoard.status ? (
               <NavLink
-                to="/"
+                to="/task-board"
                 className={styles.tasks__inactiveButton}
                 onClick={unFinishBoard}
               >
@@ -259,7 +259,7 @@ export const Tasks = () => {
               </NavLink>
             ) : (
               <NavLink
-                to="/"
+                to="/task-board"
                 className={styles.tasks__completeButton}
                 onClick={finishBoard}
               >
@@ -267,7 +267,7 @@ export const Tasks = () => {
               </NavLink>
             )}
             <NavLink
-              to="/"
+              to="/task-board"
               className={styles.tasks__removeButton}
               onClick={removeBoard}
             >
