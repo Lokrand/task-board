@@ -2,6 +2,7 @@ export const ADD_COMPLETED_TASK = "ADD_COMPLETED_TASK";
 export const REMOVE_COMPLETED_TASK = "REMOVE_COMPLETED_TASK";
 export const SET_ENDTIME_DONE = "SET_ENDTIME_DONE";
 export const REMOVE_ENDTIME_DONE = "REMOVE_ENDTIME_DONE";
+export const DROP_ON_DONE = "DROP_ON_DONE";
 
 const initialState = {
   tasks: [],
@@ -10,7 +11,6 @@ const initialState = {
 const removeEl = (state, key) => {
   let result = state.filter((elem) => elem.id !== key);
   state = result;
-  console.log("result", result);
   return state;
 };
 
@@ -30,7 +30,6 @@ export const done = (state = initialState, action) => {
         return { ...state };
       }
     case REMOVE_COMPLETED_TASK:
-      console.log("action.payload", action.payload);
       const result = removeEl(state.tasks, action.payload);
       return { ...state, tasks: [...result] };
     case SET_ENDTIME_DONE:
@@ -43,6 +42,11 @@ export const done = (state = initialState, action) => {
       const taskEndd = state.tasks.filter((el) => el.id === action.payload)[0];
       taskEndd.endTime = null;
       return { ...state };
+      case DROP_ON_DONE:
+        action.payload.status = 'done'
+        action.payload.endTime = new Date();
+        state.tasks.push(action.payload);
+        return {...state}
     default:
       return state;
   }
@@ -63,5 +67,9 @@ export const setEndTimeDone = (payload) => ({
 });
 export const removeEndTimeDone = (payload) => ({
   type: REMOVE_ENDTIME_DONE,
+  payload,
+});
+export const dropOnDoneAction = (payload) => ({
+  type: DROP_ON_DONE,
   payload,
 });

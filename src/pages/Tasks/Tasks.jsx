@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./Tasks.module.css";
 import cross from "../../images/cross.svg";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,9 +27,14 @@ import {
 } from "../../services/reducers/modal";
 import { Reorder, useUnmountEffect } from "framer-motion";
 import edit from "../../images/edit.svg";
-import { addDevelopmentTask, dropQueueOnDevelopment, removeDevelopment } from "../../services/reducers/development";
+import {
+  addDevelopmentTask,
+  dropQueueOnDevelopment,
+  removeDevelopment,
+} from "../../services/reducers/development";
 import { DndProvider, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { dropOnDoneAction, removeCompletedTask } from "../../services/reducers/done";
 
 export const Tasks = () => {
   const [addNewTaskQueue, setAddNewTaskQueue] = useState(false);
@@ -171,24 +176,27 @@ export const Tasks = () => {
 
   const onDropQueue = (id) => {
     const element = queueTasks.filter((el) => el.id === id)[0];
-    dispatch(dropQueueOnDevelopment(element))
-    dispatch(removeQueue(id))
-    console.log(element);
+    dispatch(dropQueueOnDevelopment(element));
+    dispatch(removeQueue(id));
+    dispatch(removeCompletedTask(id));
   };
 
   const onDropDevelopment = (id) => {
     const element = developmentTasks.filter((el) => el.id === id)[0];
-    dispatch(removeDevelopment(id))
-    dispatch(AddNewQueueTask(element))
-  }
-  const onDropDone = (id) => {
+    dispatch(removeDevelopment(id));
+    dispatch(removeCompletedTask(id));
+    dispatch(AddNewQueueTask(element));
+  };
+
+  const dropDevelopmentOnDone = (id) => {
     const element = developmentTasks.filter((el) => el.id === id)[0];
-    dispatch(removeDevelopment(id))
-    dispatch(AddNewQueueTask(element))
-  }
+    dispatch(removeDevelopment(id));
+    dispatch(removeQueue(id))
+    dispatch(dropOnDoneAction(element));
+  };
 
   const [, dropOnDevelopment] = useDrop(() => ({
-    accept: "queue" || "done",
+    accept:  ["queue", "done"],
     drop: (item) => onDropQueue(item.id),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -196,7 +204,7 @@ export const Tasks = () => {
   }));
 
   const [, dropOnQueue] = useDrop(() => ({
-    accept: "development" || "done",
+    accept: ["development", "done"],
     drop: (item) => onDropDevelopment(item.id),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -204,15 +212,13 @@ export const Tasks = () => {
   }));
 
   const [, dropOnDone] = useDrop(() => ({
-    accept: "development" || "queue",
-    // drop: (item) => onDropDevelopment(item.id),
+    accept: ["development","queue"],
+    drop: (item) => dropDevelopmentOnDone(item.id),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
   }));
-
-
-
+  
   return (
     <>
       <section className={styles.tasks}>
@@ -419,7 +425,6 @@ export const Tasks = () => {
           </div>
         </div>
       </section>
-
       {active && <Modal />}
     </>
   );

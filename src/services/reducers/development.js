@@ -10,7 +10,6 @@ const initialState = {
 const removeEl = (state, key) => {
   let result = state.filter((elem) => elem.id !== key);
   state = result;
-  console.log("result", result);
   return state;
 };
 

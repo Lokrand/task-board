@@ -10,7 +10,7 @@ import { development } from "./development";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: [],
+  whitelist: ['boards', 'done', 'developments', 'queue'],
 };
 
 const rootReducer = combineReducers({
