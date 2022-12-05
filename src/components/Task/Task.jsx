@@ -8,6 +8,8 @@ import { Reorder } from "framer-motion";
 import { removeCompletedTask } from "../../services/reducers/done";
 import { removeQueue } from "../../services/reducers/queue";
 import { removeDevelopment } from "../../services/reducers/development";
+import { RemoveIcon } from "../../icons/RemoveIcon";
+import { EditIcon } from "../../icons/EditIcon";
 
 export const Task = ({
   el,
@@ -50,18 +52,12 @@ export const Task = ({
     <div className={setBgColor(status, priority)} ref={dragRef}>
       <p className={styles.task__title}>{title}</p>
       <div className={styles.task__icons}>
-        <img
-          src={edit}
-          alt="edit"
-          className={styles.task__icon}
-          onClick={openModal}
-        />
-        <img
-          src={remove}
-          alt="remove"
-          className={styles.task__icon}
-          onClick={removeTask}
-        />
+        <div className={styles.task__icon} onClick={openModal}>
+          <EditIcon />
+        </div>
+        <div className={styles.task__icon} onClick={removeTask}>
+          <RemoveIcon />
+        </div>
       </div>
     </div>
   );

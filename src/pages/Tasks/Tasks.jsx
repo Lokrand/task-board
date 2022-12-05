@@ -28,6 +28,8 @@ import {
   dropOnDoneAction,
   removeCompletedTask,
 } from "../../services/reducers/done";
+import { EditIcon } from "../../icons/EditIcon";
+import { Cross } from "../../icons/Cross";
 
 export const Tasks = () => {
   const [addNewTaskQueue, setAddNewTaskQueue] = useState(false);
@@ -232,20 +234,17 @@ export const Tasks = () => {
                 >
                   Save
                 </button>
-                <img
-                  src={cross}
-                  alt="cross"
+                <div
                   className={styles.tasks__cross}
                   onClick={hideChangeTitleInput}
-                />
+                >
+                  <Cross />
+                </div>
               </div>
             ) : (
-              <img
-                src={edit}
-                alt="edit"
-                className={styles.tasks__icon}
-                onClick={changeBoardTitle}
-              />
+              <div className={styles.tasks__icon} onClick={changeBoardTitle}>
+                <EditIcon />
+              </div>
             )}
           </div>
           <div className={styles.tasks__boardStatus}>
@@ -316,12 +315,9 @@ export const Tasks = () => {
                       >
                         Add a task
                       </button>
-                      <img
-                        src={cross}
-                        alt="cross"
-                        className={styles.tasks__cross}
-                        onClick={closeInput}
-                      />
+                      <div className={styles.tasks__cross} onClick={closeInput}>
+                        <Cross />
+                      </div>
                     </div>
                   )}
                 </>
@@ -370,12 +366,12 @@ export const Tasks = () => {
                       >
                         Add a task
                       </button>
-                      <img
-                        src={cross}
-                        alt="cross"
+                      <div
                         className={styles.tasks__cross}
                         onClick={closeDevelopmentInput}
-                      />
+                      >
+                        <Cross />
+                      </div>
                     </div>
                   )}
                 </>

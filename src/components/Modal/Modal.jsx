@@ -26,6 +26,7 @@ import {
   removeEndTimeDone,
   setEndTimeDone,
 } from "../../services/reducers/done";
+import { Cross } from "../../icons/Cross";
 
 export const Modal = () => {
   const [inputActive, setInputActive] = useState(false);
@@ -173,12 +174,12 @@ export const Modal = () => {
                         >
                           Set title
                         </button>
-                        <img
-                          src={cross}
-                          alt="cross"
+                        <div
                           className={styles.modal__hideInputChangeTitleCross}
                           onClick={hideChangeTitleInput}
-                        />
+                        >
+                          <Cross />
+                        </div>
                       </div>
                     </div>
                   ) : (
@@ -227,12 +228,10 @@ export const Modal = () => {
               </div>
             </div>
           </div>
-          <img
-            src={cross}
-            alt="cross"
-            className={styles.modal__cross}
-            onClick={closeModal}
-          />
+          <div className={styles.modal__cross} onClick={closeModal}>
+            <Cross />
+          </div>
+
           {task.endTime === null ? (
             <button
               className={styles.modal__closeTaskButton}
