@@ -13,10 +13,8 @@ export const Boards = () => {
   const [newBoard, setNewBoard] = useState("");
   const [newBoardTitle, setNewBoardTitle] = useState("");
   const board = useSelector((state) => state.boards.boards);
-  // console.log("board", board);
 
   const onClick = () => {
-    // dispatch(addNewBoard({}))
     setActive(true);
   };
 
@@ -54,7 +52,9 @@ export const Boards = () => {
   return (
     <section className={styles.boards}>
       {board.map((el) => {
-        return <Board key={el.key} title={el.title} id={el.key} status={el.status} />;
+        return (
+          <Board key={el.key} title={el.title} id={el.key} status={el.status} />
+        );
       })}
       {active && (
         <div className={styles.boards__createBoard}>

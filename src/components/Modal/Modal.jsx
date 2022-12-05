@@ -9,7 +9,6 @@ import {
 } from "../../services/reducers/modal";
 import { getDate } from "../../utils/date";
 import Moment from "react-moment";
-import { setTaskEndTime } from "../../services/reducers/boards";
 import { ArrowPriority } from "../../icons/ArrowPriority";
 import {
   changeTaskPriorityHigh,
@@ -60,11 +59,7 @@ export const Modal = () => {
     timeInProgressArr = task.date.split(":");
     timeInprogress = `${timeInProgressArr[0]}:${timeInProgressArr[1]}-0000`;
   }
-  console.log(task.date)
-  // console.log("timeInprogress", timeInprogress);
-  // console.log(task.date);
-  // console.log("board", board);
-  // console.log("task", task);
+
   const dispatch = useDispatch();
   const addDescription = () => {
     setInputActive(true);
@@ -80,7 +75,6 @@ export const Modal = () => {
     if (task.endTime === null) {
       dispatch(removeCompletedTask(task.id));
     } else {
-      console.log("task", task);
       dispatch(addCompletedTask(task));
       dispatch(removeQueueByPriority(task.id));
     }
@@ -90,27 +84,21 @@ export const Modal = () => {
   const closeTask = () => {
     setButtonEndTaskActive(false);
     const endTime = new Date();
-    // task.endTime = endTime;
-    // const endTime = new Date();
     if (task.status === "queue") {
       dispatch(setEndTimeQueue({ id: task.id, endTime: endTime }));
     } else if (task.status === "done") {
       dispatch(setEndTimeDone({ id: task.id, endTime: endTime }));
-    } else {
     }
-    // dispatch(setTaskEndTime({ task: task, key: board.key }));
   };
 
   const activateTask = () => {
     setButtonEndTaskActive(true);
-    // task.endTime = null;
     if (task.status === "queue") {
       dispatch(removeEndTimeQueue(task.id));
     } else if (task.status === "done") {
       dispatch(removeEndTimeDone(task.id));
     } else {
     }
-    // dispatch(setTaskEndTime({ task: task, key: board.key }));
   };
 
   const changePriority = () => {
@@ -300,7 +288,7 @@ export const Modal = () => {
           </div>
         </div>
         <div className={styles.modal__comments}>
-          <button>Add comment</button>  
+          <button>Add comment</button>
         </div>
       </div>
     </div>,

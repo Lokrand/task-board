@@ -31,9 +31,6 @@ const actionToFnMap = {
 };
 
 export const boards = (state = initialState, action) => {
-  // const reducer = actionToFcMap[action.type]
-  // if (reducer) return reducer(state, action.payload)
-  // else return state
   switch (action.type) {
     case ADD_BOARD:
       if (action.payload) {
@@ -73,21 +70,14 @@ export const boards = (state = initialState, action) => {
       );
       return { ...state, boards: removedBoard };
     case SET_TASK_END_TIME:
-      // const myBoardd = state.boards.filter(
-      //   (el) => el.key === action.payload.key
-      // );
-      // let myQueue = myBoardd.queue.filter(
-      //   (el) => el.id === action.payload.task.id
-      // );
-      // myQueue = action.payload.task;
       return { ...state };
     case QUEUE_REORDER:
       const myBoarddd = state.boards.filter(
         (el) => el.key === action.payload.key
       )[0];
-        myBoarddd.queue = [...action.payload.queue]
+      myBoarddd.queue = [...action.payload.queue];
 
-        return {...state, boards: [...state.boards]};
+      return { ...state, boards: [...state.boards] };
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import { ADD_QUEUE, REMOVE_QUEUE, SET_TASK_END_TIME } from "../actions/actions";
+import { ADD_QUEUE, REMOVE_QUEUE } from "../actions/actions";
 
 const GET_REORDER_QUEUE = "GET_REORDER_QUEUE";
 const SET_TASK_DESCRIPTION = "SET_TASK_DESCRIPTION";
@@ -35,15 +35,12 @@ export const queue = (state = initialState, action) => {
   switch (action.type) {
     case ADD_QUEUE:
       if (action.payload) {
-        action.payload.status = 'queue';
+        action.payload.status = "queue";
         state.tasks.push(action.payload);
         return { ...state, tasks: state.tasks };
       }
     case GET_REORDER_QUEUE:
-      // console.log('res', action.payload)
-      // const res = fnArr(action.payload, state.tasks);
-    // console.log('result my func', res)
-    // return {...state, tasks: [...fnArr(action.payload, state.tasks)]}
+      return { ...state };
     case CHANGE_TASK_PRIORITY_HIGH:
       const task = state.tasks.filter((el) => el.id === action.payload)[0];
       task.priority = "high";

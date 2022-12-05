@@ -1,50 +1,41 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import styles from "./Tasks.module.css";
 import cross from "../../images/cross.svg";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  AddNewQueueTask,
-  getReorderQueue,
-  removeQueue,
-  sortByPriority,
-} from "../../services/reducers/queue";
+import { AddNewQueueTask, removeQueue } from "../../services/reducers/queue";
 import { Task } from "../../components/Task/Task";
 import { NavLink, useLocation } from "react-router-dom";
 import {
-  addQueueToBoard,
   changeBoardStatus,
   changeBoardTitleAction,
   removeBoardAction,
-  reorderQueue,
 } from "../../services/reducers/boards";
 import { generateKeys } from "../../utils/generateKeys";
 import { Modal } from "../../components/Modal/Modal";
 import {
-  closeModalAction,
   openModal,
   setCurrentBoard,
   setCurrentTask,
 } from "../../services/reducers/modal";
-import { Reorder, useUnmountEffect } from "framer-motion";
 import edit from "../../images/edit.svg";
 import {
   addDevelopmentTask,
   dropQueueOnDevelopment,
   removeDevelopment,
 } from "../../services/reducers/development";
-import { DndProvider, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { dropOnDoneAction, removeCompletedTask } from "../../services/reducers/done";
+import { useDrop } from "react-dnd";
+import {
+  dropOnDoneAction,
+  removeCompletedTask,
+} from "../../services/reducers/done";
 
 export const Tasks = () => {
   const [addNewTaskQueue, setAddNewTaskQueue] = useState(false);
   const [addNewTaskDevelopment, setAddNewTaskDevelopment] = useState(false);
-  const [addNewTaskDone, setAddNewTaskDone] = useState(false);
   const [showAddButton, setShowAddButton] = useState(false);
   const [newQueue, setNewQueue] = useState();
   const [newQueueTitle, setNewQueueTitle] = useState("");
   const [newDevelopmentTitle, setNewDevelopmentTitle] = useState("");
-  const [newDoneTitle, setNewDoneTitle] = useState("");
   const history = useLocation();
   const id = history.pathname.replace(/\/tasks\//g, "");
   const boards = useSelector((state) => state.boards.boards);
@@ -191,12 +182,12 @@ export const Tasks = () => {
   const dropDevelopmentOnDone = (id) => {
     const element = developmentTasks.filter((el) => el.id === id)[0];
     dispatch(removeDevelopment(id));
-    dispatch(removeQueue(id))
+    dispatch(removeQueue(id));
     dispatch(dropOnDoneAction(element));
   };
 
   const [, dropOnDevelopment] = useDrop(() => ({
-    accept:  ["queue", "done"],
+    accept: ["queue", "done"],
     drop: (item) => onDropQueue(item.id),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -212,13 +203,13 @@ export const Tasks = () => {
   }));
 
   const [, dropOnDone] = useDrop(() => ({
-    accept: ["development","queue"],
+    accept: ["development", "queue"],
     drop: (item) => dropDevelopmentOnDone(item.id),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
   }));
-  
+
   return (
     <>
       <section className={styles.tasks}>
@@ -416,7 +407,6 @@ export const Tasks = () => {
                       dispatch(openModal());
                       dispatch(setCurrentTask(el));
                       dispatch(setCurrentBoard(selectedBoard));
-                      console.log("mytask in tasks", el);
                     }}
                   />
                 );
