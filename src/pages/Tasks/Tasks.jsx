@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   AddNewQueueTask,
   getReorderQueue,
+  removeQueue,
   sortByPriority,
 } from "../../services/reducers/queue";
 import { Task } from "../../components/Task/Task";
@@ -26,7 +27,9 @@ import {
 } from "../../services/reducers/modal";
 import { Reorder, useUnmountEffect } from "framer-motion";
 import edit from "../../images/edit.svg";
-import { addDevelopmentTask } from "../../services/reducers/development";
+import { addDevelopmentTask, dropQueueOnDevelopment, removeDevelopment } from "../../services/reducers/development";
+import { DndProvider, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const Tasks = () => {
   const [addNewTaskQueue, setAddNewTaskQueue] = useState(false);
@@ -54,11 +57,6 @@ export const Tasks = () => {
     (el) => el.key === selectedBoard.key
   );
 
-  console.log("developmentTasks", developmentTasks);
-  console.log(
-    "developmentListForSelectedBoard",
-    developmentListForSelectedBoard
-  );
   const active = useSelector((state) => state.modal.active);
   const [showInputTitle, setShowInputTitle] = useState(false);
   const [changeInputTitleValue, setChangeInputTitleValue] = useState("");
@@ -96,7 +94,6 @@ export const Tasks = () => {
   const closeDevelopmentInput = () => {
     setAddNewTaskDevelopment(false);
   };
-
 
   const time = new Date();
 
@@ -172,6 +169,50 @@ export const Tasks = () => {
     dispatch(removeBoardAction({ key: selectedBoard.key }));
   };
 
+  const onDropQueue = (id) => {
+    const element = queueTasks.filter((el) => el.id === id)[0];
+    dispatch(dropQueueOnDevelopment(element))
+    dispatch(removeQueue(id))
+    console.log(element);
+  };
+
+  const onDropDevelopment = (id) => {
+    const element = developmentTasks.filter((el) => el.id === id)[0];
+    dispatch(removeDevelopment(id))
+    dispatch(AddNewQueueTask(element))
+  }
+  const onDropDone = (id) => {
+    const element = developmentTasks.filter((el) => el.id === id)[0];
+    dispatch(removeDevelopment(id))
+    dispatch(AddNewQueueTask(element))
+  }
+
+  const [, dropOnDevelopment] = useDrop(() => ({
+    accept: "queue" || "done",
+    drop: (item) => onDropQueue(item.id),
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  }));
+
+  const [, dropOnQueue] = useDrop(() => ({
+    accept: "development" || "done",
+    drop: (item) => onDropDevelopment(item.id),
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  }));
+
+  const [, dropOnDone] = useDrop(() => ({
+    accept: "development" || "queue",
+    // drop: (item) => onDropDevelopment(item.id),
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  }));
+
+
+
   return (
     <>
       <section className={styles.tasks}>
@@ -238,126 +279,111 @@ export const Tasks = () => {
           </div>
         </div>
         <div className={styles.tasks__columns}>
-          <div className={styles.tasks__column}>
+          <div className={styles.tasks__column} ref={dropOnQueue}>
             <h3 className={styles.tasks__taskName}>Queue</h3>
-            <Reorder.Group
-              as="ol"
-              axys="y"
-              values={selectedBoard.queue}
-              onReorder={(newOrder) => {
-                dispatch(getReorderQueue(newOrder));
-              }}
-              // onReorder={(newOrder) => {dispatch(reorderQueue({key: selectedBoard.key, queue: newOrder}))}}
-            >
-              <div className={styles.tasks__items}>
-                {queueListForSelectedBoard.map((el) => {
-                  return (
-                    <Task
-                      key={el.id}
-                      el={el}
-                      title={el.title}
-                      id={el.id}
-                      status={el.endTime}
-                      priority={el.priority}
-                      onBoard={el.status}
-                      openModal={() => {
-                        dispatch(openModal());
-                        dispatch(setCurrentTask(el));
-                        dispatch(setCurrentBoard(selectedBoard));
-                      }}
-                    />
-                  );
-                })}
 
-                {addNewTaskQueue && (
-                  <>
-                    <textarea
-                      className={styles.tasks__input}
-                      rows="1"
-                      placeholder="Enter the name of the new task..."
-                      id="textName"
-                      onChange={onChange}
-                    ></textarea>
-                    {showAddButton && (
-                      <div className={styles.tasks__cancel}>
-                        <button
-                          className={styles.tasks_addNewTaskButton}
-                          onClick={addNewQueue}
-                        >
-                          Add a task
-                        </button>
-                        <img
-                          src={cross}
-                          alt="cross"
-                          className={styles.tasks__cross}
-                          onClick={closeInput}
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            </Reorder.Group>
+            <div className={styles.tasks__items}>
+              {queueListForSelectedBoard.map((el) => {
+                return (
+                  <Task
+                    key={el.id}
+                    el={el}
+                    title={el.title}
+                    id={el.id}
+                    status={el.endTime}
+                    priority={el.priority}
+                    onBoard={el.status}
+                    openModal={() => {
+                      dispatch(openModal());
+                      dispatch(setCurrentTask(el));
+                      dispatch(setCurrentBoard(selectedBoard));
+                    }}
+                  />
+                );
+              })}
+
+              {addNewTaskQueue && (
+                <>
+                  <textarea
+                    className={styles.tasks__input}
+                    rows="1"
+                    placeholder="Enter the name of the new task..."
+                    id="textName"
+                    onChange={onChange}
+                  ></textarea>
+                  {showAddButton && (
+                    <div className={styles.tasks__cancel}>
+                      <button
+                        className={styles.tasks_addNewTaskButton}
+                        onClick={addNewQueue}
+                      >
+                        Add a task
+                      </button>
+                      <img
+                        src={cross}
+                        alt="cross"
+                        className={styles.tasks__cross}
+                        onClick={closeInput}
+                      />
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
             <button className={styles.tasks__button} onClick={onClick}>
               Add a new task...
             </button>
           </div>
-          <div className={styles.tasks__column}>
+          <div className={styles.tasks__column} ref={dropOnDevelopment}>
             <h3 className={styles.tasks__taskName}>Development</h3>
-            <Reorder.Group
-              as="ol"
-              axys="y"
-              values={selectedBoard.queue}
-              // onReorder={setItem}
-            >
-              <div className={styles.tasks__items}>
-                {developmentListForSelectedBoard.map((el) => {
-                  return (
-                    <Task
-                      key={el.id}
-                      el={el}
-                      title={el.title}
-                      id={el.id}
-                      status={el.endTime}
-                      priority={el.priority}
-                      onBoard={el.status}
-                      openModal={() => {
-                        dispatch(openModal());
-                        dispatch(setCurrentTask(el));
-                        dispatch(setCurrentBoard(selectedBoard));
-                      }}
-                    />
-                  );
-                })}
-                {addNewTaskDevelopment && (
-                  <>
-                    <textarea
-                      className={styles.tasks__input}
-                      rows="1"
-                      placeholder="Enter the name of the new task..."
-                      id="textName"
-                      onChange={onChangeDevelopmentInput}
-                    ></textarea>
-                    {showAddButton && (
-                      <div className={styles.tasks__cancel}>
-                        <button
-                          className={styles.tasks_addNewTaskButton}
-                          onClick={addNewDevelopment}
-                        >
-                          Add a task
-                        </button>
-                        <img
-                          src={cross}
-                          alt="cross"
-                          className={styles.tasks__cross}
-                          onClick={closeDevelopmentInput}
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            </Reorder.Group>
+            <div className={styles.tasks__items}>
+              {developmentListForSelectedBoard.map((el) => {
+                return (
+                  <Task
+                    key={el.id}
+                    el={el}
+                    title={el.title}
+                    id={el.id}
+                    status={el.endTime}
+                    priority={el.priority}
+                    onBoard={el.status}
+                    openModal={() => {
+                      dispatch(openModal());
+                      dispatch(setCurrentTask(el));
+                      dispatch(setCurrentBoard(selectedBoard));
+                    }}
+                  />
+                );
+              })}
+              {addNewTaskDevelopment && (
+                <>
+                  <textarea
+                    className={styles.tasks__input}
+                    rows="1"
+                    placeholder="Enter the name of the new task..."
+                    id="textName"
+                    onChange={onChangeDevelopmentInput}
+                  ></textarea>
+                  {showAddButton && (
+                    <div className={styles.tasks__cancel}>
+                      <button
+                        className={styles.tasks_addNewTaskButton}
+                        onClick={addNewDevelopment}
+                      >
+                        Add a task
+                      </button>
+                      <img
+                        src={cross}
+                        alt="cross"
+                        className={styles.tasks__cross}
+                        onClick={closeDevelopmentInput}
+                      />
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
 
             <button
               className={styles.tasks__button}
@@ -366,39 +392,34 @@ export const Tasks = () => {
               Add a new task...
             </button>
           </div>
-          <div className={styles.tasks__column}>
+          <div className={styles.tasks__column} ref={dropOnDone}>
             <h3 className={styles.tasks__taskName}>Done</h3>
-            <Reorder.Group
-              as="ol"
-              axys="y"
-              values={selectedBoard.queue}
-              // onReorder={setItem}
-            >
-              <div className={styles.tasks__items}>
-                {doneListForSelectedBoard.map((el) => {
-                  return (
-                    <Task
-                      key={el.id}
-                      el={el}
-                      title={el.title}
-                      id={el.id}
-                      status={el.endTime}
-                      priority={el.priority}
-                      onBoard={el.status}
-                      openModal={() => {
-                        dispatch(openModal());
-                        dispatch(setCurrentTask(el));
-                        dispatch(setCurrentBoard(selectedBoard));
-                        console.log("mytask in tasks", el);
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            </Reorder.Group>
+
+            <div className={styles.tasks__items}>
+              {doneListForSelectedBoard.map((el) => {
+                return (
+                  <Task
+                    key={el.id}
+                    el={el}
+                    title={el.title}
+                    id={el.id}
+                    status={el.endTime}
+                    priority={el.priority}
+                    onBoard={el.status}
+                    openModal={() => {
+                      dispatch(openModal());
+                      dispatch(setCurrentTask(el));
+                      dispatch(setCurrentBoard(selectedBoard));
+                      console.log("mytask in tasks", el);
+                    }}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
+
       {active && <Modal />}
     </>
   );

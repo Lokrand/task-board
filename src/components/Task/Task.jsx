@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Task.module.css";
 import remove from "../../images/remove.svg";
 import edit from "../../images/edit.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { removeQueueFromBoard } from "../../services/reducers/boards";
+import { useDispatch } from "react-redux";
+import { useDrag } from "react-dnd";
 import { Reorder } from "framer-motion";
-import { getDefaultCompilerOptions } from "typescript";
 import { removeCompletedTask } from "../../services/reducers/done";
 import { removeQueue } from "../../services/reducers/queue";
 import { removeDevelopment } from "../../services/reducers/development";
@@ -20,13 +19,12 @@ export const Task = ({
   onBoard,
 }) => {
   const dispatch = useDispatch();
-  console.log(onBoard)
   const removeTask = () => {
-    if (onBoard === 'queue') {
+    if (onBoard === "queue") {
       dispatch(removeQueue(id));
       dispatch(removeCompletedTask(id));
-    } else if (onBoard === 'development') {
-      dispatch(removeDevelopment(id))
+    } else if (onBoard === "development") {
+      dispatch(removeDevelopment(id));
     } else {
       dispatch(removeCompletedTask(id));
     }
@@ -40,31 +38,31 @@ export const Task = ({
     } else return styles.task;
   };
 
+  const [{ isDrag }, dragRef] = useDrag({
+    type: onBoard,
+    item: { id },
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
+
   return (
-    <Reorder.Item
-      value={el}
-      id={el}
-      whileDrag={{
-        filter: "invert(1)",
-      }}
-    >
-      <div className={setBgColor(status, priority)}>
-        <p className={styles.task__title}>{title}</p>
-        <div className={styles.task__icons}>
-          <img
-            src={edit}
-            alt="edit"
-            className={styles.task__icon}
-            onClick={openModal}
-          />
-          <img
-            src={remove}
-            alt="remove"
-            className={styles.task__icon}
-            onClick={removeTask}
-          />
-        </div>
+    <div className={setBgColor(status, priority)} ref={dragRef}>
+      <p className={styles.task__title}>{title}</p>
+      <div className={styles.task__icons}>
+        <img
+          src={edit}
+          alt="edit"
+          className={styles.task__icon}
+          onClick={openModal}
+        />
+        <img
+          src={remove}
+          alt="remove"
+          className={styles.task__icon}
+          onClick={removeTask}
+        />
       </div>
-    </Reorder.Item>
+    </div>
   );
 };

@@ -1,6 +1,8 @@
 export const ADD_DEVELOPMENT_TASK = "ADD_DEVELOPMENT_TASK";
 export const SET_DEVELOPMENT_END_TIME = "SET_DEVELOPMENT_END_TIME";
 export const REMOVE_DEVELOPMENT_TASK = "REMOVE_DEVELOPMENT_TASK";
+export const DROP_QUEUE_ON_DEVELOPMENT = "DROP_QUEUE_ON_DEVELOPMENT";
+
 const initialState = {
   tasks: [],
 };
@@ -20,6 +22,10 @@ export const development = (state = initialState, action) => {
     case REMOVE_DEVELOPMENT_TASK:
       const result = removeEl(state.tasks, action.payload);
       return { ...state, tasks: [...result] };
+    case DROP_QUEUE_ON_DEVELOPMENT:
+      action.payload.status = "development";
+      state.tasks.push(action.payload);
+      return { ...state };
     default:
       return state;
   }
@@ -32,8 +38,12 @@ export const addDevelopmentTask = (payload) => ({
 export const setEndTimeDevelopment = (payload) => ({
   type: SET_DEVELOPMENT_END_TIME,
   payload,
-})
+});
 export const removeDevelopment = (payload) => ({
   type: REMOVE_DEVELOPMENT_TASK,
   payload,
-})
+});
+export const dropQueueOnDevelopment = (payload) => ({
+  type: DROP_QUEUE_ON_DEVELOPMENT,
+  payload,
+});

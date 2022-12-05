@@ -35,12 +35,13 @@ export const queue = (state = initialState, action) => {
   switch (action.type) {
     case ADD_QUEUE:
       if (action.payload) {
+        action.payload.status = 'queue';
         state.tasks.push(action.payload);
         return { ...state, tasks: state.tasks };
       }
     case GET_REORDER_QUEUE:
       // console.log('res', action.payload)
-      const res = fnArr(action.payload, state.tasks);
+      // const res = fnArr(action.payload, state.tasks);
     // console.log('result my func', res)
     // return {...state, tasks: [...fnArr(action.payload, state.tasks)]}
     case CHANGE_TASK_PRIORITY_HIGH:
