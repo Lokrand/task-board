@@ -1,0 +1,35 @@
+.subtasks {
+  padding: 20px;
+  font: 400 16px/18px "Inter", sans-serif;
+}
+
+.subtasks__title {
+  font: 900 20px/22px "Inter", sans-serif;
+  margin-bottom: 20px;
+}
+
+.subtasks__addSubtaskInput {
+  padding: 10px;
+  border-radius: 10px;
+  width: 370px;
+  border: none;
+}
+
+.subtasks__addNewSubtaskBlock {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.subtasks__inputError {
+  color: red;
+}
+
+.subtasks__addNewSubtaskButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 390px;
+}
+

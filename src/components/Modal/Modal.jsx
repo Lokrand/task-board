@@ -26,6 +26,7 @@ import {
   setEndTimeDone,
 } from "../../services/reducers/done";
 import { Cross } from "../../icons/Cross";
+import { Subtasks } from "../Subtasks/Subtasks";
 
 export const Modal = () => {
   const [inputActive, setInputActive] = useState(false);
@@ -285,6 +286,7 @@ export const Modal = () => {
             )}
           </div>
         </div>
+        <Subtasks />
         <div className={styles.modal__comments}>
           <button>Add comment</button>
         </div>
