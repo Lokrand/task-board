@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addNewBoard } from "../../services/reducers/boards";
 import { Board } from "../Board/Board";
 import styles from "./Boards.module.css";
-import cross from "../../images/cross.svg";
 import { generateKeys } from "../../utils/generateKeys";
+import { Cross } from "../../icons/Cross";
 
 export const Boards = () => {
   const dispatch = useDispatch();
@@ -73,12 +73,9 @@ export const Boards = () => {
               >
                 Add a board
               </button>
-              <img
-                src={cross}
-                alt="cross"
-                className={styles.tasks__cross}
-                onClick={closeInput}
-              />
+              <div className={styles.tasks__cross} onClick={closeInput}>
+                <Cross />
+              </div>
             </div>
           )}
         </div>

@@ -1,10 +1,7 @@
 import React from "react";
 import styles from "./Task.module.css";
-import remove from "../../images/remove.svg";
-import edit from "../../images/edit.svg";
 import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
-import { Reorder } from "framer-motion";
 import { removeCompletedTask } from "../../services/reducers/done";
 import { removeQueue } from "../../services/reducers/queue";
 import { removeDevelopment } from "../../services/reducers/development";

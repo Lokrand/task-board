@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Modal.module.css";
-import cross from "../../images/cross.svg";
 import ReactDom from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {

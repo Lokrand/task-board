@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./Tasks.module.css";
-import cross from "../../images/cross.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { AddNewQueueTask, removeQueue } from "../../services/reducers/queue";
 import { Task } from "../../components/Task/Task";
@@ -17,7 +16,6 @@ import {
   setCurrentBoard,
   setCurrentTask,
 } from "../../services/reducers/modal";
-import edit from "../../images/edit.svg";
 import {
   addDevelopmentTask,
   dropQueueOnDevelopment,
