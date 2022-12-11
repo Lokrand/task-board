@@ -6,6 +6,7 @@ import { boards } from "./boards";
 import { modal } from "./modal";
 import { done } from "./done";
 import { development } from "./development";
+import { tasks } from "./tasks";
 
 const persistConfig = {
   key: "root",
@@ -14,11 +15,12 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  queue,
+  // queue,
   boards,
   modal,
-  done,
-  development
+  // done,
+  // development,
+  tasks
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,33 +1,23 @@
 import React, { useState } from "react";
 import styles from "./Tasks.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { AddNewQueueTask, removeQueue } from "../../services/reducers/queue";
 import { Task } from "../../components/Task/Task";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import {
   changeBoardStatus,
   changeBoardTitleAction,
   removeBoardAction,
 } from "../../services/reducers/boards";
-import { generateKeys } from "../../utils/generateKeys";
 import { Modal } from "../../components/Modal/Modal";
 import {
   openModal,
   setCurrentBoard,
   setCurrentTask,
 } from "../../services/reducers/modal";
-import {
-  addDevelopmentTask,
-  dropQueueOnDevelopment,
-  removeDevelopment,
-} from "../../services/reducers/development";
 import { useDrop } from "react-dnd";
-import {
-  dropOnDoneAction,
-  removeCompletedTask,
-} from "../../services/reducers/done";
 import { EditIcon } from "../../icons/EditIcon";
 import { Cross } from "../../icons/Cross";
+import { addNewTask, changeTaskStatus } from "../../services/reducers/tasks";
 
 export const Tasks = () => {
   const [addNewTaskQueue, setAddNewTaskQueue] = useState(false);
@@ -36,21 +26,24 @@ export const Tasks = () => {
   const [newQueue, setNewQueue] = useState();
   const [newQueueTitle, setNewQueueTitle] = useState("");
   const [newDevelopmentTitle, setNewDevelopmentTitle] = useState("");
-  const history = useLocation();
-  const id = history.pathname.replace(/\/tasks\//g, "");
+  const { id } = useParams();
+
   const boards = useSelector((state) => state.boards.boards);
   const selectedBoard = boards.filter((el) => el.key === id)[0];
-  const queueTasks = useSelector((state) => state.queue.tasks);
-  const doneTasks = useSelector((state) => state.done.tasks);
-  const developmentTasks = useSelector((state) => state.development.tasks);
-  const queueListForSelectedBoard = queueTasks.filter(
-    (el) => el.key === selectedBoard.key
+  const queueTasks = useSelector((state) =>
+    state.tasks.tasks.filter(
+      (el) => el.key === selectedBoard.key && el.status === "queue"
+    )
   );
-  const doneListForSelectedBoard = doneTasks.filter(
-    (el) => el.key === selectedBoard.key
+  const doneTasks = useSelector((state) =>
+    state.tasks.tasks.filter(
+      (el) => el.key === selectedBoard.key && el.status === "done"
+    )
   );
-  const developmentListForSelectedBoard = developmentTasks.filter(
-    (el) => el.key === selectedBoard.key
+  const developmentTasks = useSelector((state) =>
+    state.tasks.tasks.filter(
+      (el) => el.key === selectedBoard.key && el.status === "development"
+    )
   );
 
   const active = useSelector((state) => state.modal.active);
@@ -95,19 +88,10 @@ export const Tasks = () => {
 
   const addNewQueue = () => {
     dispatch(
-      AddNewQueueTask({
+      addNewTask({
         key: selectedBoard.key,
         title: newQueueTitle,
         date: time,
-        id: generateKeys(),
-        endTime: null,
-        description: "",
-        priority: "low",
-        status: "queue",
-        number: 0,
-        subtasks: [],
-        comments: [],
-        subComments: [],
       })
     );
     setNewQueue({
@@ -115,26 +99,6 @@ export const Tasks = () => {
       title: newQueueTitle,
     });
     setAddNewTaskQueue(false);
-  };
-
-  const addNewDevelopment = () => {
-    dispatch(
-      addDevelopmentTask({
-        key: selectedBoard.key,
-        title: newDevelopmentTitle,
-        date: time,
-        id: generateKeys(),
-        endTime: null,
-        description: "",
-        priority: "low",
-        status: "development",
-        number: 0,
-        subtasks: [],
-        comments: [],
-        subComments: [],
-      })
-    );
-    setAddNewTaskDevelopment(false);
   };
 
   const changeBoardTitle = () => {
@@ -165,30 +129,13 @@ export const Tasks = () => {
     dispatch(removeBoardAction({ key: selectedBoard.key }));
   };
 
-  const onDropQueue = (id) => {
-    const element = queueTasks.filter((el) => el.id === id)[0];
-    dispatch(dropQueueOnDevelopment(element));
-    dispatch(removeQueue(id));
-    dispatch(removeCompletedTask(id));
-  };
-
-  const onDropDevelopment = (id) => {
-    const element = developmentTasks.filter((el) => el.id === id)[0];
-    dispatch(removeDevelopment(id));
-    dispatch(removeCompletedTask(id));
-    dispatch(AddNewQueueTask(element));
-  };
-
-  const dropDevelopmentOnDone = (id) => {
-    const element = developmentTasks.filter((el) => el.id === id)[0];
-    dispatch(removeDevelopment(id));
-    dispatch(removeQueue(id));
-    dispatch(dropOnDoneAction(element));
+  const handleDrop = (id, status) => {
+    dispatch(changeTaskStatus({ id, status }));
   };
 
   const [, dropOnDevelopment] = useDrop(() => ({
     accept: ["queue", "done"],
-    drop: (item) => onDropQueue(item.id),
+    drop: (item) => handleDrop(item.id, "development"),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
@@ -196,7 +143,7 @@ export const Tasks = () => {
 
   const [, dropOnQueue] = useDrop(() => ({
     accept: ["development", "done"],
-    drop: (item) => onDropDevelopment(item.id),
+    drop: (item) => handleDrop(item.id, "queue"),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
@@ -204,7 +151,7 @@ export const Tasks = () => {
 
   const [, dropOnDone] = useDrop(() => ({
     accept: ["development", "queue"],
-    drop: (item) => dropDevelopmentOnDone(item.id),
+    drop: (item) => handleDrop(item.id, "done"),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
@@ -277,7 +224,7 @@ export const Tasks = () => {
             <h3 className={styles.tasks__taskName}>Queue</h3>
 
             <div className={styles.tasks__items}>
-              {queueListForSelectedBoard.map((el) => {
+              {queueTasks.map((el) => {
                 return (
                   <Task
                     key={el.id}
@@ -329,7 +276,7 @@ export const Tasks = () => {
           <div className={styles.tasks__column} ref={dropOnDevelopment}>
             <h3 className={styles.tasks__taskName}>Development</h3>
             <div className={styles.tasks__items}>
-              {developmentListForSelectedBoard.map((el) => {
+              {developmentTasks.map((el) => {
                 return (
                   <Task
                     key={el.id}
@@ -347,47 +294,13 @@ export const Tasks = () => {
                   />
                 );
               })}
-              {addNewTaskDevelopment && (
-                <>
-                  <textarea
-                    className={styles.tasks__input}
-                    rows="1"
-                    placeholder="Enter the name of the new task..."
-                    id="textName"
-                    onChange={onChangeDevelopmentInput}
-                  ></textarea>
-                  {showAddButton && (
-                    <div className={styles.tasks__cancel}>
-                      <button
-                        className={styles.tasks_addNewTaskButton}
-                        onClick={addNewDevelopment}
-                      >
-                        Add a task
-                      </button>
-                      <div
-                        className={styles.tasks__cross}
-                        onClick={closeDevelopmentInput}
-                      >
-                        <Cross />
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
             </div>
-
-            <button
-              className={styles.tasks__button}
-              onClick={showInputAddNewDevelopment}
-            >
-              Add a new task...
-            </button>
           </div>
           <div className={styles.tasks__column} ref={dropOnDone}>
             <h3 className={styles.tasks__taskName}>Done</h3>
 
             <div className={styles.tasks__items}>
-              {doneListForSelectedBoard.map((el) => {
+              {doneTasks.map((el) => {
                 return (
                   <Task
                     key={el.id}

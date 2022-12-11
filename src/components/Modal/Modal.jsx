@@ -9,21 +9,22 @@ import {
 import { getDate } from "../../utils/date";
 import Moment from "react-moment";
 import { ArrowPriority } from "../../icons/ArrowPriority";
+
 import {
+  changeTitleTasks,
+  removeEndTimeTasks,
+  removeTasksByPriority,
+  setDescriptionTasks,
+  setEndTimeTasks,
   changeTaskPriorityHigh,
   changeTaskPriorityLow,
-  changeTitleQueue,
-  removeEndTimeQueue,
-  removeQueueByPriority,
-  setDescriptionQueue,
-  setEndTimeQueue,
   sortByPriority,
-} from "../../services/reducers/queue";
+  closeTaskAction,
+  changeTaskStatus,
+} from "../../services/reducers/tasks";
 import {
   addCompletedTask,
   removeCompletedTask,
-  removeEndTimeDone,
-  setEndTimeDone,
 } from "../../services/reducers/done";
 import { Cross } from "../../icons/Cross";
 import { Subtasks } from "../Subtasks/Subtasks";
@@ -73,33 +74,23 @@ export const Modal = () => {
   };
 
   const closeModal = () => {
+    console.log('task', task)
     if (task.endTime === null) {
-      dispatch(removeCompletedTask(task.id));
+      dispatch(changeTaskStatus({ id: task.id, status: "queue" }));
     } else {
-      dispatch(addCompletedTask(task));
-      dispatch(removeQueueByPriority(task.id));
+      dispatch(closeTaskAction({ id: task.id }));
     }
     dispatch(closeModalAction());
     dispatch(setCurrentTask([]));
   };
   const closeTask = () => {
     setButtonEndTaskActive(false);
-    const endTime = new Date();
-    if (task.status === "queue") {
-      dispatch(setEndTimeQueue({ id: task.id, endTime: endTime }));
-    } else if (task.status === "done") {
-      dispatch(setEndTimeDone({ id: task.id, endTime: endTime }));
-    }
+    dispatch(setEndTimeTasks({ id: task.id, endTime: new Date() }));
   };
 
   const activateTask = () => {
     setButtonEndTaskActive(true);
-    if (task.status === "queue") {
-      dispatch(removeEndTimeQueue(task.id));
-    } else if (task.status === "done") {
-      dispatch(removeEndTimeDone(task.id));
-    } else {
-    }
+    dispatch(removeEndTimeTasks(task.id));
   };
 
   const changePriority = () => {
@@ -129,12 +120,12 @@ export const Modal = () => {
   }, [active]);
 
   const setDescriptionText = () => {
-    dispatch(setDescriptionQueue({ id: task.id, description: inputValue }));
+    dispatch(setDescriptionTasks({ id: task.id, description: inputValue }));
     setInputActive(false);
   };
 
   const changeTitle = () => {
-    dispatch(changeTitleQueue({ id: task.id, title: valueInputChangeTitle }));
+    dispatch(changeTitleTasks({ id: task.id, title: valueInputChangeTitle }));
     setShowInputChangeTitle(false);
   };
   const showChangeTitleInput = () => {

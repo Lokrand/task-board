@@ -2,11 +2,9 @@ import React from "react";
 import styles from "./Task.module.css";
 import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
-import { removeCompletedTask } from "../../services/reducers/done";
-import { removeQueue } from "../../services/reducers/queue";
-import { removeDevelopment } from "../../services/reducers/development";
 import { RemoveIcon } from "../../icons/RemoveIcon";
 import { EditIcon } from "../../icons/EditIcon";
+import { removeTask } from "../../services/reducers/tasks";
 
 export const Task = ({
   el,
@@ -18,15 +16,9 @@ export const Task = ({
   onBoard,
 }) => {
   const dispatch = useDispatch();
-  const removeTask = () => {
-    if (onBoard === "queue") {
-      dispatch(removeQueue(id));
-      dispatch(removeCompletedTask(id));
-    } else if (onBoard === "development") {
-      dispatch(removeDevelopment(id));
-    } else {
-      dispatch(removeCompletedTask(id));
-    }
+
+  const handleRemoveTask = () => {
+    dispatch(removeTask(id));
   };
 
   const setBgColor = (status, priority) => {
@@ -52,7 +44,7 @@ export const Task = ({
         <div className={styles.task__icon} onClick={openModal}>
           <EditIcon />
         </div>
-        <div className={styles.task__icon} onClick={removeTask}>
+        <div className={styles.task__icon} onClick={handleRemoveTask}>
           <RemoveIcon />
         </div>
       </div>

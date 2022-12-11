@@ -41,21 +41,7 @@ export const queue = (state = initialState, action) => {
       }
     case GET_REORDER_QUEUE:
       return { ...state };
-    case CHANGE_TASK_PRIORITY_HIGH:
-      const task = state.tasks.filter((el) => el.id === action.payload)[0];
-      task.priority = "high";
-      return { ...state };
-    case CHANGE_TASK_PRIORITY_LOW:
-      const task1 = state.tasks.filter((el) => el.id === action.payload)[0];
-      task1.priority = "low";
-      return { ...state };
-    case SORT_BY_PRIORITY:
-      state.tasks.sort((el) => {
-        if (el.priority === "low") {
-          return 1;
-        } else return -1;
-      });
-      return { ...state };
+    
     case REMOVE_QUEUE_BY_PRIORITY:
       const result = removeEl(state.tasks, action.payload);
       return { ...state, tasks: [...result] };
