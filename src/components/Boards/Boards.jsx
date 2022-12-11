@@ -8,7 +8,6 @@ import { Cross } from "../../icons/Cross";
 
 export const Boards = () => {
   const dispatch = useDispatch();
-  const boards = [111, 222, 333, 444, 555];
   const [active, setActive] = useState(false);
   const [newBoard, setNewBoard] = useState("");
   const [newBoardTitle, setNewBoardTitle] = useState("");

@@ -1,12 +1,12 @@
 .main {
   padding: 30px 40px 0;
   min-height: calc(100vh - 110px);
-  background-color: #89609E;
+  background-color: #89609e;
 }
 
 .main__title {
   margin-bottom: 20px;
-  font: 900 30px/36px 'Inter', sans-serif;
+  font: 900 30px/36px "Inter", sans-serif;
   color: #fff;
   text-shadow: 3px 3px 7px rgba(0, 0, 0, 1);
 }

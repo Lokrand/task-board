@@ -3,9 +3,9 @@
   height: 150px;
   background-color: #ecebe8;
   border-radius: 20px;
-  padding: 20px; 
+  padding: 20px;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-  transition: opacity .2s linear;
+  transition: opacity 0.2s linear;
   text-decoration: none;
 }
 
@@ -14,11 +14,11 @@
 }
 
 .board__title {
-  font: 500 24px/26px 'Inter', sans-serif;
+  font: 500 24px/26px "Inter", sans-serif;
   color: black;
 }
 
 .board:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }

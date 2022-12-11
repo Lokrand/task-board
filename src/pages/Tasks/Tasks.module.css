@@ -14,7 +14,6 @@ li::marker {
 }
 
 .tasks__title {
-  /* margin-bottom: 20px; */
   font: 900 30px/36px "Inter", sans-serif;
   color: #fff;
   text-shadow: 3px 3px 7px rgba(0, 0, 0, 1);
@@ -24,11 +23,9 @@ li::marker {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 50px;
-  /* justify-content: space-around; */
 }
 
 .tasks__column {
-  /* width: 300px; */
   position: relative;
   min-height: 300px;
   padding: 20px;
@@ -73,12 +70,10 @@ li::marker {
 }
 
 .tasks__input {
-  /* position: absolute; */
-  /* display: flex; */
   display: inline-block;
   align-items: center;
   width: calc(100%-40px);
-  /* max-width: 437px; */
+
   min-height: 40px;
   padding: 20px;
   font: 400 20px/20px "Inter", sans-serif;
@@ -239,11 +234,11 @@ textarea {
   border: none;
   border-radius: 10px;
   font: 500 14px/14px "Inter", sans-serif;
-  color:rgba(0, 0, 0, 1);
+  color: rgba(0, 0, 0, 1);
   transition: opacity 0.2s linear;
 }
 
 .tasks__inactiveButton:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
