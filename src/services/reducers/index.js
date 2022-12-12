@@ -1,11 +1,8 @@
 import { createStore, combineReducers } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { queue } from "./queue";
 import { boards } from "./boards";
 import { modal } from "./modal";
-import { done } from "./done";
-import { development } from "./development";
 import { tasks } from "./tasks";
 
 const persistConfig = {
@@ -15,11 +12,10 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  // queue,
+
   boards,
   modal,
-  // done,
-  // development,
+
   tasks
 });
 

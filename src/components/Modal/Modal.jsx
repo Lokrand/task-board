@@ -13,7 +13,6 @@ import { ArrowPriority } from "../../icons/ArrowPriority";
 import {
   changeTitleTasks,
   removeEndTimeTasks,
-  removeTasksByPriority,
   setDescriptionTasks,
   setEndTimeTasks,
   changeTaskPriorityHigh,
@@ -22,10 +21,6 @@ import {
   closeTaskAction,
   changeTaskStatus,
 } from "../../services/reducers/tasks";
-import {
-  addCompletedTask,
-  removeCompletedTask,
-} from "../../services/reducers/done";
 import { Cross } from "../../icons/Cross";
 import { Subtasks } from "../Subtasks/Subtasks";
 
