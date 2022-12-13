@@ -25,14 +25,6 @@ li::marker {
   column-gap: 50px;
 }
 
-.tasks__column {
-  position: relative;
-  min-height: 300px;
-  padding: 20px;
-  background-color: #ecebe8;
-  border-radius: 20px;
-}
-
 .tasks__button {
   position: absolute;
   bottom: 0;
@@ -55,18 +47,6 @@ li::marker {
 
 .tasks__button:active {
   background-color: #ecebe8;
-}
-
-.tasks__taskName {
-  font: 500 20px/22px "Inter", sans-serif;
-  margin-bottom: 20px;
-}
-
-.tasks__items {
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-  padding-bottom: 50px;
 }
 
 .tasks__input {

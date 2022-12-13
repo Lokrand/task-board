@@ -8,15 +8,13 @@ import { tasks } from "./tasks";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ['boards', 'done', 'developments', 'queue'],
+  whitelist: ["boards", "done", "developments", "queue"],
 };
 
 const rootReducer = combineReducers({
-
   boards,
   modal,
-
-  tasks
+  tasks,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

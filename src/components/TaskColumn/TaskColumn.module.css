@@ -1,0 +1,19 @@
+.tasks__column {
+  position: relative;
+  min-height: 300px;
+  padding: 20px;
+  background-color: #ecebe8;
+  border-radius: 20px;
+}
+
+.tasks__items {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  padding-bottom: 50px;
+}
+
+.tasks__taskName {
+  font: 500 20px/22px "Inter", sans-serif;
+  margin-bottom: 20px;
+}

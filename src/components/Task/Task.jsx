@@ -1,24 +1,30 @@
 import React from "react";
 import styles from "./Task.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { RemoveIcon } from "../../icons/RemoveIcon";
 import { EditIcon } from "../../icons/EditIcon";
 import { removeTask } from "../../services/reducers/tasks";
-
-export const Task = ({
-  el,
-  title,
-  id,
+import {
   openModal,
-  status,
-  priority,
-  onBoard,
-}) => {
-  const dispatch = useDispatch();
+  setCurrentBoard,
+  setCurrentTask,
+} from "../../services/reducers/modal";
 
+export const Task = ({ el }) => {
+  const { title, id, endTime, priority, status } = el;
+  const dispatch = useDispatch();
+  const selectedBoard = useSelector((state) =>
+    state.boards.boards.find((board) => board.key === el.key)
+  );
   const handleRemoveTask = () => {
     dispatch(removeTask(id));
+  };
+
+  const handleOpenModal = () => {
+    dispatch(openModal());
+    dispatch(setCurrentTask(el));
+    dispatch(setCurrentBoard(selectedBoard));
   };
 
   const setBgColor = (status, priority) => {
@@ -30,7 +36,7 @@ export const Task = ({
   };
 
   const [{ isDrag }, dragRef] = useDrag({
-    type: onBoard,
+    type: status,
     item: { id },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
@@ -38,10 +44,10 @@ export const Task = ({
   });
 
   return (
-    <div className={setBgColor(status, priority)} ref={dragRef}>
+    <div className={setBgColor(endTime, priority)} ref={dragRef}>
       <p className={styles.task__title}>{title}</p>
       <div className={styles.task__icons}>
-        <div className={styles.task__icon} onClick={openModal}>
+        <div className={styles.task__icon} onClick={handleOpenModal}>
           <EditIcon />
         </div>
         <div className={styles.task__icon} onClick={handleRemoveTask}>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Tasks.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { Task } from "../../components/Task/Task";
 import { NavLink, useParams } from "react-router-dom";
 import {
   changeBoardStatus,
@@ -9,23 +8,16 @@ import {
   removeBoardAction,
 } from "../../services/reducers/boards";
 import { Modal } from "../../components/Modal/Modal";
-import {
-  openModal,
-  setCurrentBoard,
-  setCurrentTask,
-} from "../../services/reducers/modal";
 import { useDrop } from "react-dnd";
 import { EditIcon } from "../../icons/EditIcon";
 import { Cross } from "../../icons/Cross";
 import { addNewTask, changeTaskStatus } from "../../services/reducers/tasks";
+import { TaskColumn } from "../../components/TaskColumn/TaskColumn";
 
 export const Tasks = () => {
   const [addNewTaskQueue, setAddNewTaskQueue] = useState(false);
-  const [addNewTaskDevelopment, setAddNewTaskDevelopment] = useState(false);
   const [showAddButton, setShowAddButton] = useState(false);
-  const [newQueue, setNewQueue] = useState();
   const [newQueueTitle, setNewQueueTitle] = useState("");
-  const [newDevelopmentTitle, setNewDevelopmentTitle] = useState("");
   const { id } = useParams();
 
   const boards = useSelector((state) => state.boards.boards);
@@ -54,9 +46,6 @@ export const Tasks = () => {
   const onClick = () => {
     setAddNewTaskQueue(true);
   };
-  const showInputAddNewDevelopment = () => {
-    setAddNewTaskDevelopment(true);
-  };
 
   const onChange = (e) => {
     if (e.target.value.length > 0) {
@@ -68,20 +57,8 @@ export const Tasks = () => {
     }
   };
 
-  const onChangeDevelopmentInput = (e) => {
-    if (e.target.value.length > 0) {
-      setShowAddButton(true);
-      setNewDevelopmentTitle(e.target.value);
-    }
-    if (e.target.value.length === 0) {
-      setShowAddButton(false);
-    }
-  };
   const closeInput = () => {
     setAddNewTaskQueue(false);
-  };
-  const closeDevelopmentInput = () => {
-    setAddNewTaskDevelopment(false);
   };
 
   const time = new Date();
@@ -94,10 +71,6 @@ export const Tasks = () => {
         date: time,
       })
     );
-    setNewQueue({
-      time: time,
-      title: newQueueTitle,
-    });
     setAddNewTaskQueue(false);
   };
 
@@ -220,106 +193,47 @@ export const Tasks = () => {
           </div>
         </div>
         <div className={styles.tasks__columns}>
-          <div className={styles.tasks__column} ref={dropOnQueue}>
-            <h3 className={styles.tasks__taskName}>Queue</h3>
-
-            <div className={styles.tasks__items}>
-              {queueTasks.map((el) => {
-                return (
-                  <Task
-                    key={el.id}
-                    el={el}
-                    title={el.title}
-                    id={el.id}
-                    status={el.endTime}
-                    priority={el.priority}
-                    onBoard={el.status}
-                    openModal={() => {
-                      dispatch(openModal());
-                      dispatch(setCurrentTask(el));
-                      dispatch(setCurrentBoard(selectedBoard));
-                    }}
-                  />
-                );
-              })}
-
-              {addNewTaskQueue && (
-                <>
-                  <textarea
-                    className={styles.tasks__input}
-                    rows="1"
-                    placeholder="Enter the name of the new task..."
-                    id="textName"
-                    onChange={onChange}
-                  ></textarea>
-                  {showAddButton && (
-                    <div className={styles.tasks__cancel}>
-                      <button
-                        className={styles.tasks_addNewTaskButton}
-                        onClick={addNewQueue}
-                      >
-                        Add a task
-                      </button>
-                      <div className={styles.tasks__cross} onClick={closeInput}>
-                        <Cross />
-                      </div>
+          <TaskColumn
+            ref={dropOnQueue}
+            title="Queue"
+            tasks={queueTasks}
+            footer={
+              <button className={styles.tasks__button} onClick={onClick}>
+                Add a new task...
+              </button>
+            }
+          >
+            {addNewTaskQueue && (
+              <>
+                <textarea
+                  className={styles.tasks__input}
+                  rows="1"
+                  placeholder="Enter the name of the new task..."
+                  id="textName"
+                  onChange={onChange}
+                ></textarea>
+                {showAddButton && (
+                  <div className={styles.tasks__cancel}>
+                    <button
+                      className={styles.tasks_addNewTaskButton}
+                      onClick={addNewQueue}
+                    >
+                      Add a task
+                    </button>
+                    <div className={styles.tasks__cross} onClick={closeInput}>
+                      <Cross />
                     </div>
-                  )}
-                </>
-              )}
-            </div>
-
-            <button className={styles.tasks__button} onClick={onClick}>
-              Add a new task...
-            </button>
-          </div>
-          <div className={styles.tasks__column} ref={dropOnDevelopment}>
-            <h3 className={styles.tasks__taskName}>Development</h3>
-            <div className={styles.tasks__items}>
-              {developmentTasks.map((el) => {
-                return (
-                  <Task
-                    key={el.id}
-                    el={el}
-                    title={el.title}
-                    id={el.id}
-                    status={el.endTime}
-                    priority={el.priority}
-                    onBoard={el.status}
-                    openModal={() => {
-                      dispatch(openModal());
-                      dispatch(setCurrentTask(el));
-                      dispatch(setCurrentBoard(selectedBoard));
-                    }}
-                  />
-                );
-              })}
-            </div>
-          </div>
-          <div className={styles.tasks__column} ref={dropOnDone}>
-            <h3 className={styles.tasks__taskName}>Done</h3>
-
-            <div className={styles.tasks__items}>
-              {doneTasks.map((el) => {
-                return (
-                  <Task
-                    key={el.id}
-                    el={el}
-                    title={el.title}
-                    id={el.id}
-                    status={el.endTime}
-                    priority={el.priority}
-                    onBoard={el.status}
-                    openModal={() => {
-                      dispatch(openModal());
-                      dispatch(setCurrentTask(el));
-                      dispatch(setCurrentBoard(selectedBoard));
-                    }}
-                  />
-                );
-              })}
-            </div>
-          </div>
+                  </div>
+                )}
+              </>
+            )}
+          </TaskColumn>
+          <TaskColumn
+            ref={dropOnDevelopment}
+            title="Development"
+            tasks={developmentTasks}
+          />
+          <TaskColumn ref={dropOnDone} title="Done" tasks={doneTasks} />
         </div>
       </section>
       {active && <Modal />}
