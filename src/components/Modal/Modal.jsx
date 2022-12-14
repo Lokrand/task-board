@@ -49,6 +49,7 @@ export const Modal = () => {
     findStatus = board.done.filter((el) => el.id === task.id);
     if (findStatus) taskStatus = "Done";
   }
+  
   const date = getDate(task.date);
   let timeInProgressArr;
   let timeInprogress;
