@@ -49,7 +49,7 @@ export const Modal = () => {
     findStatus = board.done.filter((el) => el.id === task.id);
     if (findStatus) taskStatus = "Done";
   }
-  
+
   const date = getDate(task.date);
   let timeInProgressArr;
   let timeInprogress;
@@ -70,7 +70,7 @@ export const Modal = () => {
   };
 
   const closeModal = () => {
-    console.log('task', task)
+    console.log("task", task);
     if (task.endTime === null) {
       dispatch(changeTaskStatus({ id: task.id, status: "queue" }));
     } else {
