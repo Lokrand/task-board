@@ -43,14 +43,12 @@ export const Modal = () => {
     findStatus = board.queue.filter((el) => el.id === task.id);
     if (findStatus) taskStatus = "Queue";
   } else if (board.development) {
-    
     findStatus = board.development.filter((el) => el.id === task.id);
     if (findStatus) taskStatus = "Development";
   } else {
     findStatus = board.done.filter((el) => el.id === task.id);
     if (findStatus) taskStatus = "Done";
   }
-  
 
   const date = getDate(task.date);
   let timeInProgressArr;
