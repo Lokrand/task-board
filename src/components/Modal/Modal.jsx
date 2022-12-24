@@ -59,7 +59,7 @@ export const Modal = () => {
   }
 
   const dispatch = useDispatch();
-  
+
   const addDescription = () => {
     setInputActive(true);
   };
