@@ -19,16 +19,6 @@ const initialState = {
   tasks: [],
 };
 
-const fnArr = (reorder, state) => {
-  reorder.forEach((item) => {
-    state = state.filter((item2) => {
-      return item2.id !== item.id;
-    });
-  });
-  let result = [...state, ...reorder];
-  return result;
-};
-
 const removeEl = (state, id) => {
   let result = state.filter((elem) => elem.id !== id);
   state = result;
