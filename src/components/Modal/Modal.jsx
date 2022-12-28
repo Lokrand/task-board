@@ -51,6 +51,7 @@ export const Modal = () => {
   }
 
   const date = getDate(task.date);
+  
   let timeInProgressArr;
   let timeInprogress;
   if (task.date.length > 0) {
