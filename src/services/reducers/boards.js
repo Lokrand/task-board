@@ -21,14 +21,14 @@ const removeEl = (state, type, key) => {
   return state;
 };
 
-const actionToFnMap = {
-  ADD_BOARD: (state, payload) => {
-    if (payload) {
-      state.boards.push(payload);
-      return { ...state, boards: state.boards };
-    }
-  },
-};
+// const actionToFnMap = {
+//   ADD_BOARD: (state, payload) => {
+//     if (payload) {
+//       state.boards.push(payload);
+//       return { ...state, boards: state.boards };
+//     }
+//   },
+// };
 
 export const boards = (state = initialState, action) => {
   switch (action.type) {
