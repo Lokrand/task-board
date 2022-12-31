@@ -37,7 +37,9 @@ export const Subtasks = () => {
           </p>
         </div>
         <div className={styles.subtasks__addNewSubtaskButtons}>
-          <button className={styles.subtasks__createSubtask}>Create subtask</button>
+          <button className={styles.subtasks__createSubtask}>
+            Create subtask
+          </button>
           <button>Cancel</button>
         </div>
       </div>
