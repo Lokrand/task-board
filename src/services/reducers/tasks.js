@@ -95,7 +95,8 @@ export const tasks = (state = initialState, action) => {
       )[0];
       taskTitl.title = action.payload.title;
       return { ...state };
-    case CHANGE_TASK_STATUS: // for title and description and ...
+    case CHANGE_TASK_STATUS: 
+    // for title and description and ...
       return {
         ...state,
         tasks: state.tasks.map((item) =>
