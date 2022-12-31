@@ -128,6 +128,7 @@ export const addNewTask = (payload) => ({
   type: ADD_TASKS,
   payload,
 });
+
 export const closeTaskAction = (payload) => ({
   type: CLOSE_TASK,
   payload,
@@ -137,41 +138,51 @@ export const getReorderTasks = (payload) => ({
   type: GET_REORDER_TASKS,
   payload,
 });
+
 export const setTaskDescription = (payload) => ({
   type: SET_TASK_DESCRIPTION,
   payload,
 });
+
 export const changeTaskPriorityHigh = (payload) => ({
   type: CHANGE_TASK_PRIORITY_HIGH,
   payload,
 });
+
 export const changeTaskPriorityLow = (payload) => ({
   type: CHANGE_TASK_PRIORITY_LOW,
   payload,
 });
+
 export const sortByPriority = () => ({
   type: SORT_BY_PRIORITY,
 });
+
 export const removeTasksByPriority = (payload) => ({
   type: REMOVE_TASKS_BY_PRIORITY,
   payload,
 });
+
 export const removeTask = (payload) => ({
   type: REMOVE_TASK,
   payload,
 });
+
 export const setEndTimeTasks = (payload) => ({
   type: SET_ENDTIME_TASKS,
   payload,
 });
+
 export const removeEndTimeTasks = (payload) => ({
   type: REMOVE_ENDTIME_TASKS,
   payload,
 });
+
 export const setDescriptionTasks = (payload) => ({
   type: SET_DESCRIPTION_TASKS,
   payload,
 });
+
 export const changeTitleTasks = (payload) => ({
   type: CHANGE_TITLE,
   payload,
