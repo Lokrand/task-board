@@ -1,7 +1,7 @@
 import { createStore, combineReducers } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { boards } from "./boards";
+import { boards } from "../boards/boards";
 import { modal } from "./modal";
 import { tasks } from "./tasks";
 

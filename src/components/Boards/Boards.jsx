@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewBoard } from "../../services/reducers/boards";
+import { addNewBoard } from "../../services/boards/actions";
 import { Board } from "../Board/Board";
 import styles from "./Boards.module.css";
 import { generateKeys } from "../../utils/generateKeys";
@@ -41,9 +41,6 @@ export const Boards = () => {
         date: date,
         key: generateKeys(),
         status: false,
-        queue: [],
-        developments: [],
-        done: [],
       })
     );
     setActive(false);

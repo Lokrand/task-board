@@ -6,7 +6,7 @@ import {
   changeBoardStatus,
   changeBoardTitleAction,
   removeBoardAction,
-} from "../../services/reducers/boards";
+} from "../../services/boards/boards";
 import { Modal } from "../../components/Modal/Modal";
 import { useDrop } from "react-dnd";
 import { EditIcon } from "../../icons/EditIcon";
