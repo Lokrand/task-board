@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import styles from "./Subtasks.module.css";
 
@@ -8,13 +8,16 @@ export const Subtasks = () => {
   const [inputNewSubtaskError, setInputNewSubtaskError] = useState(false);
 
   const onChangeNewSubtaskInput = (e) => {
-    if (e.target.value.length > 30) {
-      setInputNewSubtaskError(true);
-    } else {
-      setInputNewSubtaskValue(e.target.value);
-    }
+    setInputNewSubtaskValue(e.target.value);
   };
 
+  useEffect(() => {
+    if (inputNewSubtaskValue.length > 30) {
+      setInputNewSubtaskError(true);
+    } else {
+      setInputNewSubtaskError(false);
+    }
+  }, [inputNewSubtaskValue]);
   const letShowInput = () => {
     setShowInput(true);
   };
@@ -33,14 +36,16 @@ export const Subtasks = () => {
             className={styles.subtasks__addSubtaskInput}
             onChange={onChangeNewSubtaskInput}
           />
-          <p className={styles.subtasks__inputError}>
-            The title of the subtask cannot exceed 30 symbols
-          </p>
+          {inputNewSubtaskError && (
+            <p className={styles.subtasks__inputError}>
+              The title of the subtask cannot exceed 30 symbols
+            </p>
+          )}
         </div>
-        <div className={styles.subtasks__addNewSubtaskButtons}>
-          <Button color="green" title="Create subtask" />
+        {!inputNewSubtaskError && <div className={styles.subtasks__addNewSubtaskButtons}>
+          <Button color="green" title="Create" />
           <Button color="red" title="Cancel" />
-        </div>
+        </div>}
       </div>
       <button
         onClick={letShowInput}

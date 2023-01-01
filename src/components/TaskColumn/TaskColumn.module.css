@@ -4,6 +4,7 @@
   padding: 20px;
   background-color: #ecebe8;
   border-radius: 20px;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.3);
 }
 
 .tasks__items {
