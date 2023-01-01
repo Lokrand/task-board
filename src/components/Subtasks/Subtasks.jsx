@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import styles from "./Subtasks.module.css";
 
 export const Subtasks = () => {
-  // const [showInput, setShowInput] = useState(false);
-  // const [inputNewSubtaskValue, setInputNewSubtaskValue] = useState("");
-  // const [inputNewSubtaskError, setInputNewSubtaskError] = useState(false);
+  const [showInput, setShowInput] = useState(false);
+  const [inputNewSubtaskValue, setInputNewSubtaskValue] = useState("");
+  const [inputNewSubtaskError, setInputNewSubtaskError] = useState(false);
 
-  // const onChangeNewSubtaskInput = (e) => {
-  //   if (e.target.value.length > 30) {
-  //     setInputNewSubtaskError(true);
-  //   } else {
-  //     setInputNewSubtaskValue(e.target.value);
-  //   }
-  // };
+  const onChangeNewSubtaskInput = (e) => {
+    if (e.target.value.length > 30) {
+      setInputNewSubtaskError(true);
+    } else {
+      setInputNewSubtaskValue(e.target.value);
+    }
+  };
 
-  // const letShowInput = () => {
-  //   setShowInput(true);
-  // };
+  const letShowInput = () => {
+    setShowInput(true);
+  };
 
   return (
     <div className={styles.subtasks}>
