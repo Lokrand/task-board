@@ -33,26 +33,11 @@ export const Modal = () => {
   const [priority, setPriority] = useState("low");
   const active = useSelector((state) => state.modal.active);
   const task = useSelector((state) => state.modal.currentTask);
-  const board = useSelector((state) => state.modal.currentBoard);
   let dateEndTask = "In progress";
   if (task.endTime) dateEndTask = getDate(task.endTime);
 
-  let findStatus;
-  let taskStatus;
-  if (board.queue) {
-    findStatus = board.queue.filter((el) => el.id === task.id);
-    if (findStatus) taskStatus = "Queue";
-  } else if (board.development) {
-    findStatus = board.development.filter((el) => el.id === task.id);
-    if (findStatus) taskStatus = "Development";
-  } else {
-    
-    findStatus = board.done.filter((el) => el.id === task.id);
-    if (findStatus) taskStatus = "Done";
-  }
-
   const date = getDate(task.date);
-  
+
   let timeInProgressArr;
   let timeInprogress;
   if (task.date.length > 0) {

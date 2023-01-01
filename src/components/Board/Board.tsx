@@ -1,8 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Board.module.css";
 
-export const Board = ({ title, id, status }) => {
+interface IBoard {
+  title: string;
+  id: string;
+  status: string;
+}
+
+export const Board: FC<IBoard> = ({ title, id, status }) => {
   return (
     <NavLink
       to={`/tasks/${id}`}
