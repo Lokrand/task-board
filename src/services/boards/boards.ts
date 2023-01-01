@@ -1,26 +1,23 @@
-import {
-  ADD_BOARD,
-  CHANGE_BOARD_STATUS,
-  CHANGE_BOARD_TITLE,
-  REMOVE_BOARD,
-} from "../actions/actions";
+import { IBoards } from "../types/data";
 import { BoardActionTypes, TBoardsActions } from "./actions";
 
 interface IBoardsState {
-  boards: any[];
+  boards: IBoards[];
 }
 
-const initialState:IBoardsState = {
+const initialState: IBoardsState = {
   boards: [],
 };
 
-export const boards = (state = initialState, action: TBoardsActions):IBoardsState => {
+export const boards = (
+  state = initialState,
+  action: TBoardsActions
+): IBoardsState => {
   switch (action.type) {
     case BoardActionTypes.ADD_BOARD:
-      if (action.payload) {
-        state.boards.push(action.payload);
-        return { ...state, boards: state.boards };
-      }
+      state.boards.push(action.payload);
+      return { ...state, boards: state.boards };
+
     case BoardActionTypes.CHANGE_BOARD_TITLE:
       const findBoard = state.boards.filter(
         (el) => el.key === action.payload.key
