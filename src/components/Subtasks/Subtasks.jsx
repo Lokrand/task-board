@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "../Button/Button";
 import styles from "./Subtasks.module.css";
 
 export const Subtasks = () => {
@@ -37,10 +38,8 @@ export const Subtasks = () => {
           </p>
         </div>
         <div className={styles.subtasks__addNewSubtaskButtons}>
-          <button className={styles.subtasks__createSubtask}>
-            Create subtask
-          </button>
-          <button>Cancel</button>
+          <Button color="green" title="Create subtask" />
+          <Button color="red" title="Cancel" />
         </div>
       </div>
       <button
