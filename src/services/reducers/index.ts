@@ -5,6 +5,8 @@ import { boards } from "../boards/boards";
 import { modal } from "./modal";
 import { tasks } from "./tasks";
 
+export type RootState = ReturnType<typeof store.getState>;
+
 const persistConfig = {
   key: "root",
   storage,
