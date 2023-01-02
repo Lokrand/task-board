@@ -9,3 +9,7 @@ export enum ModalActionTypes {
   SET_CURRENT_TASK = "SET_CURRENT_TASK",
   SET_CURRENT_BOARD = "SET_CURRENT_BOARD",
 }
+
+interface IOpenModal {
+  type: ModalActionTypes.OPEN_MODAL;
+}
