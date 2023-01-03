@@ -22,3 +22,13 @@ interface ISetCurrentTask {
   type: ModalActionTypes.SET_CURRENT_TASK;
   payload: any;
 }
+interface ISetCurrentBoard {
+  type: ModalActionTypes.SET_CURRENT_BOARD;
+  payload: any;
+}
+
+export type TModalActions =
+  | IOpenModal
+  | ICloseModalAction
+  | ISetCurrentTask
+  | ISetCurrentBoard;
