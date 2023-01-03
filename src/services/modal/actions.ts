@@ -13,3 +13,12 @@ export enum ModalActionTypes {
 interface IOpenModal {
   type: ModalActionTypes.OPEN_MODAL;
 }
+
+interface ICloseModalAction {
+  type: ModalActionTypes.CLOSE_MODAL;
+}
+
+interface ISetCurrentTask {
+  type: ModalActionTypes.SET_CURRENT_TASK;
+  payload: any;
+}
