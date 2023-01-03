@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   closeModalAction,
   setCurrentTask,
-} from "../../services/reducers/modal";
+} from "../../services/modal/modal";
 import { getDate } from "../../utils/date";
 import Moment from "react-moment";
 import { ArrowPriority } from "../../icons/ArrowPriority";

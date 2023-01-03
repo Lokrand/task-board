@@ -9,7 +9,7 @@ import {
   openModal,
   setCurrentBoard,
   setCurrentTask,
-} from "../../services/reducers/modal";
+} from "../../services/modal/modal";
 
 export const Task = ({ el }) => {
   const { title, id, endTime, priority, status } = el;
