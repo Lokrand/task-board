@@ -32,3 +32,20 @@ export type TModalActions =
   | ICloseModalAction
   | ISetCurrentTask
   | ISetCurrentBoard;
+
+export const openModal = (): TModalActions => ({
+  type: ModalActionTypes.OPEN_MODAL,
+});
+
+export const closeModalAction = (): TModalActions => ({
+  type: ModalActionTypes.CLOSE_MODAL,
+});
+
+export const setCurrentTask = (payload: any): TModalActions => ({
+  type: ModalActionTypes.SET_CURRENT_TASK,
+  payload,
+});
+export const setCurrentBoard = (payload: any): TModalActions => ({
+  type: ModalActionTypes.SET_CURRENT_BOARD,
+  payload,
+});
