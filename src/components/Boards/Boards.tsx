@@ -16,14 +16,13 @@ export const Boards: FC = () => {
 
   const [newBoardTitle, setNewBoardTitle] = useState("");
 
-  
   const board = useSelector((state) => state.boards.boards);
 
   const onClick = () => {
     setActive(true);
   };
 
-  const onChange:HTMLElementEventMap = (e) => {
+  const onChange = (e) => {
     if (e.target.value.length > 0) {
       setNewBoard(true);
       setNewBoardTitle(e.target.value);
