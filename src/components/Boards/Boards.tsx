@@ -20,7 +20,7 @@ export const Boards: FC = () => {
     setActive(true);
   };
 
-  const onChange = (e) => {
+  const onChange:HTMLElementEventMap = (e) => {
     if (e.target.value.length > 0) {
       setNewBoard(true);
       setNewBoardTitle(e.target.value);
@@ -30,13 +30,11 @@ export const Boards: FC = () => {
     }
   };
 
-
-
   const closeInput = () => {
     setActive(false);
     setNewBoard("");
   };
-  
+
   const date = new Date();
 
   const addBoard = () => {
