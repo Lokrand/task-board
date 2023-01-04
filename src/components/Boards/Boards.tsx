@@ -13,7 +13,10 @@ export const Boards: FC = () => {
   const [active, setActive] = useState(false);
 
   const [newBoard, setNewBoard] = useState("");
+
   const [newBoardTitle, setNewBoardTitle] = useState("");
+
+  
   const board = useSelector((state) => state.boards.boards);
 
   const onClick = () => {
