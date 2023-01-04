@@ -13,6 +13,7 @@ export const boards = (
   state = initialState,
   action: TBoardsActions
 ): IBoardsState => {
+  
   switch (action.type) {
     case BoardActionTypes.ADD_BOARD:
       state.boards.push(action.payload);
