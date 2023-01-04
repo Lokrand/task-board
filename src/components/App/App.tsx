@@ -10,7 +10,6 @@ export const App: FC = () => {
     <>
       <Header />
       <Routes>
-        
         <Route path="/task-board" element={<Main />} />
         <Route path="/tasks/:id" element={<Tasks />} />
       </Routes>
