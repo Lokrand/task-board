@@ -30,12 +30,15 @@ export const Boards: FC = () => {
     }
   };
 
+
+
   const closeInput = () => {
     setActive(false);
     setNewBoard("");
   };
-  const date = new Date();
   
+  const date = new Date();
+
   const addBoard = () => {
     dispatch(
       addNewBoard({
