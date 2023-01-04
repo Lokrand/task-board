@@ -35,6 +35,7 @@ export const Boards: FC = () => {
     setNewBoard("");
   };
   const date = new Date();
+  
   const addBoard = () => {
     dispatch(
       addNewBoard({
