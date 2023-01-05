@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import styles from "./Subtasks.module.css";
 
-export const Subtasks = () => {
+export const Subtasks: FC = () => {
   const [showInput, setShowInput] = useState(false);
   const [inputNewSubtaskValue, setInputNewSubtaskValue] = useState("");
   const [inputNewSubtaskError, setInputNewSubtaskError] = useState(false);
