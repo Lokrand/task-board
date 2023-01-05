@@ -136,8 +136,8 @@ export const Modal: FC = () => {
                       <textarea
                         name=""
                         id=""
-                        cols="30"
-                        rows="5"
+                        cols={30}
+                        rows={5}
                         placeholder={task.title}
                         className={styles.modal__changeTitleInput}
                         onChange={changeTitleText}
@@ -231,7 +231,7 @@ export const Modal: FC = () => {
               <>
                 <textarea
                   className={styles.modal__input}
-                  rows="10"
+                  rows={10}
                   placeholder="Enter the description"
                   id="textName"
                   onChange={onChangeInput}
