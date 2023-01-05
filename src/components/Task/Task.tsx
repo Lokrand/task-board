@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./Task.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
@@ -11,7 +11,11 @@ import {
   setCurrentTask,
 } from "../../services/modal/modal";
 
-export const Task = ({ el }) => {
+interface Task {
+
+}
+
+export const Task: FC = ({ el }) => {
   const { title, id, endTime, priority, status } = el;
   const dispatch = useDispatch();
   const selectedBoard = useSelector((state) =>
