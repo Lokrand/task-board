@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./Header.module.css";
 import logo from "../../images/logoTB.svg";
 import { BoardsIcon } from "../../icons/BoardsIcon";
 import { NavLink } from "react-router-dom";
 
-export const Header = () => {
+export const Header: FC = () => {
   return (
     <section className={styles.section}>
       <NavLink to="/task-board" className={styles.button}>
