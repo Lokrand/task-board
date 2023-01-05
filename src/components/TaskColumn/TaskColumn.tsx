@@ -1,8 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import { Task } from "../Task/Task";
 import styles from "./TaskColumn.module.css";
 
-export const TaskColumn = React.forwardRef((props, ref) => {
+interface ITaskColumn {
+  
+}
+
+export const TaskColumn: FC = React.forwardRef((props, ref) => {
 
   const { title, tasks, children, footer } = props;
   
