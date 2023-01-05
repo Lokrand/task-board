@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC, FormEventHandler } from "react";
 import styles from "./Modal.module.css";
 import ReactDom from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,7 +24,7 @@ import {
 import { Cross } from "../../icons/Cross";
 import { Subtasks } from "../Subtasks/Subtasks";
 
-export const Modal = () => {
+export const Modal: FC = () => {
   const [inputActive, setInputActive] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [showInputChangeTitle, setShowInputChangeTitle] = useState(false);
