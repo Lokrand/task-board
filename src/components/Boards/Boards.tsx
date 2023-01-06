@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewBoard } from "../../services/boards/actions";
 import { Board } from "../Board/Board";
@@ -13,7 +13,7 @@ export const Boards: FC = () => {
 
   const [active, setActive] = useState(false);
 
-  const [newBoard, setNewBoard] = useState("");
+  const [newBoard, setNewBoard] = useState(false);
 
   const [newBoardTitle, setNewBoardTitle] = useState("");
 
@@ -23,7 +23,7 @@ export const Boards: FC = () => {
     setActive(true);
   };
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 0) {
       setNewBoard(true);
       setNewBoardTitle(e.target.value);
@@ -35,7 +35,7 @@ export const Boards: FC = () => {
 
   const closeInput = () => {
     setActive(false);
-    setNewBoard("");
+    setNewBoard(false);
   };
 
   const date = new Date();
@@ -50,7 +50,7 @@ export const Boards: FC = () => {
       })
     );
     setActive(false);
-    setNewBoard("");
+    setNewBoard(false);
   };
 
   return (
