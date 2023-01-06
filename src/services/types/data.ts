@@ -6,13 +6,14 @@ export interface IBoards {
 }
 
 export interface ITask {
-  id: string,
-  endTime: string | null,
-  description: string,
-  priority: string,
-  status: string,
-  number: number,
-  subtasks: any[],
-  comments: any[],
-  subComments: any[],
+  id: string;
+  title: string;
+  endTime: string | null;
+  description: string;
+  priority: string;
+  status: string;
+  number: number;
+  subtasks: any[];
+  comments: any[];
+  subComments: any[];
 }

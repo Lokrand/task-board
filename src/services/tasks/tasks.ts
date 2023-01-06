@@ -1,5 +1,5 @@
 import { generateKeys } from "../../utils/generateKeys";
-import { TasksActionTypes } from "./actions";
+import { TasksActionTypes, TTasksActions } from "./actions";
 import { ITask } from "../types/data";
 
 interface ITasksState {
@@ -10,13 +10,16 @@ const initialState: ITasksState = {
   tasks: [],
 };
 
-const removeEl = (state, id) => {
+const removeEl = (state: ITask[], id: string) => {
   let result = state.filter((elem) => elem.id !== id);
   state = result;
   return state;
 };
 
-export const tasks = (state = initialState, action) => {
+export const tasks = (
+  state = initialState,
+  action: TTasksActions
+): ITasksState => {
   switch (action.type) {
     case TasksActionTypes.ADD_TASKS:
       return {
@@ -86,8 +89,8 @@ export const tasks = (state = initialState, action) => {
       )[0];
       taskTitl.title = action.payload.title;
       return { ...state };
-    case TasksActionTypes.CHANGE_TASK_STATUS: 
-    // for title and description and ...
+    case TasksActionTypes.CHANGE_TASK_STATUS:
+      // for title and description and ...
       return {
         ...state,
         tasks: state.tasks.map((item) =>
