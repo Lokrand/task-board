@@ -47,4 +47,12 @@ interface ISortByPriority {
   type: TasksActionTypes.SORT_BY_PRIORITY;
 }
 
+interface IRemoveTasksByPriority {
+  type: TasksActionTypes.REMOVE_TASKS_BY_PRIORITY;
+}
+
+interface IRemoveTask {
+  type: TasksActionTypes.REMOVE_TASK;
+  payload: any;
+}
 
