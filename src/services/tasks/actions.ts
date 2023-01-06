@@ -34,6 +34,17 @@ interface IGetReorderTasks {
   payload: any;
 }
 
-interface ISetTaskDescription {
-  type: TasksActionTypes.SET_TASK_DESCRIPTION
+interface IChangeTaskPriorityHigh {
+  type: TasksActionTypes.CHANGE_TASK_PRIORITY_HIGH;
+  payload: any;
 }
+interface IChangeTaskPriorityLow {
+  type: TasksActionTypes.CHANGE_TASK_PRIORITY_LOW;
+  payload: any;
+}
+
+interface ISortByPriority {
+  type: TasksActionTypes.SORT_BY_PRIORITY;
+}
+
+
