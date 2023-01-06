@@ -19,3 +19,9 @@ interface IChangeTaskStatus {
   type: TasksActionTypes.CHANGE_TASK_STATUS;
   payload: string;
 }
+
+interface IAddNewTask {
+  type: TasksActionTypes.ADD_TASKS;
+  payload: any;
+}
+
