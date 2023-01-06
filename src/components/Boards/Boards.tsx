@@ -6,6 +6,7 @@ import styles from "./Boards.module.css";
 import { generateKeys } from "../../utils/generateKeys";
 import { Cross } from "../../icons/Cross";
 import { IBoards } from "../../services/types/data";
+import { useTypedSelector } from "../../hooks/useSelector";
 
 export const Boards: FC = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export const Boards: FC = () => {
 
   const [newBoardTitle, setNewBoardTitle] = useState("");
 
-  const board = useSelector((state) => state.boards.boards);
+  const board = useTypedSelector((state) => state.boards.boards);
 
   const onClick = () => {
     setActive(true);
