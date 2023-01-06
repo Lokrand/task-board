@@ -1,7 +1,6 @@
 import { generateKeys } from "../../utils/generateKeys";
 
 const GET_REORDER_TASKS = "GET_REORDER_TASKS";
-const SET_TASK_DESCRIPTION = "SET_TASK_DESCRIPTION";
 const CHANGE_TASK_PRIORITY_HIGH = "CHANGE_TASK_PRIORITY_HIGH";
 const CHANGE_TASK_PRIORITY_LOW = "CHANGE_TASK_PRIORITY_LOW";
 const SORT_BY_PRIORITY = "SORT_BY_PRIORITY";
@@ -136,11 +135,6 @@ export const closeTaskAction = (payload) => ({
 
 export const getReorderTasks = (payload) => ({
   type: GET_REORDER_TASKS,
-  payload,
-});
-
-export const setTaskDescription = (payload) => ({
-  type: SET_TASK_DESCRIPTION,
   payload,
 });
 

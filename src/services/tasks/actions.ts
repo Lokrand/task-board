@@ -1,6 +1,5 @@
 export enum TasksActionTypes {
   GET_REORDER_TASKS = "GET_REORDER_TASKS",
-  SET_TASK_DESCRIPTION = "SET_TASK_DESCRIPTION",
   CHANGE_TASK_PRIORITY_HIGH = "CHANGE_TASK_PRIORITY_HIGH",
   CHANGE_TASK_PRIORITY_LOW = "CHANGE_TASK_PRIORITY_LOW",
   SORT_BY_PRIORITY = "SORT_BY_PRIORITY",
@@ -28,4 +27,13 @@ interface IAddNewTask {
 interface ICloseTaskAction {
   type: TasksActionTypes.CLOSE_TASK;
   payload: any;
+}
+
+interface IGetReorderTasks {
+  type: TasksActionTypes.GET_REORDER_TASKS;
+  payload: any;
+}
+
+interface ISetTaskDescription {
+  type: TasksActionTypes.SET_TASK_DESCRIPTION
 }
