@@ -16,7 +16,7 @@ import {
   sortByPriority,
   closeTaskAction,
   changeTaskStatus,
-} from "../../services/reducers/tasks";
+} from "../../services/tasks/tasks";
 import { Cross } from "../../icons/Cross";
 import { Subtasks } from "../Subtasks/Subtasks";
 import { useTypedSelector } from "../../hooks/useSelector";

@@ -11,7 +11,7 @@ import { Modal } from "../../components/Modal/Modal";
 import { useDrop } from "react-dnd";
 import { EditIcon } from "../../icons/EditIcon";
 import { Cross } from "../../icons/Cross";
-import { addNewTask, changeTaskStatus } from "../../services/reducers/tasks";
+import { addNewTask, changeTaskStatus } from "../../services/tasks/tasks";
 import { TaskColumn } from "../../components/TaskColumn/TaskColumn";
 import { useTypedSelector } from "../../hooks/useSelector";
 

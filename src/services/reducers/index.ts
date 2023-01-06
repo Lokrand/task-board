@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { boards } from "../boards/boards";
 import { modal } from "../modal/modal";
-import { tasks } from "./tasks";
+import { tasks } from "../tasks/tasks";
 
 export type RootState = ReturnType<typeof store.getState>;
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { RemoveIcon } from "../../icons/RemoveIcon";
 import { EditIcon } from "../../icons/EditIcon";
-import { removeTask } from "../../services/reducers/tasks";
+import { removeTask } from "../../services/tasks/tasks";
 import {
   openModal,
   setCurrentBoard,
