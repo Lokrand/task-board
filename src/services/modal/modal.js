@@ -3,6 +3,8 @@ export const CLOSE_MODAL = "CLOSE_MODAL";
 export const SET_CURRENT_TASK = "SET_CURRENT_TASK";
 export const SET_CURRENT_BOARD = "SET_CURRENT_BOARD";
 
+
+
 const initialState = {
   active: false,
   currentTask: null,
