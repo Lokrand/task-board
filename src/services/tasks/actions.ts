@@ -56,3 +56,14 @@ interface IRemoveTask {
   payload: any;
 }
 
+interface ISetEndTimeTasks {
+  type: TasksActionTypes.SET_ENDTIME_TASKS;
+  payload: any;
+}
+
+interface IRemoveEndTimeTasks {
+  type: TasksActionTypes.REMOVE_ENDTIME_TASKS;
+  payload: any;
+}
+
+
