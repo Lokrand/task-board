@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styles from "./Button.module.css";
 
 interface IButton {
-  onClick: VoidFunction;
+  onClick?: VoidFunction;
   title: string;
   color: string;
 }

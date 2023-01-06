@@ -13,6 +13,7 @@ import { EditIcon } from "../../icons/EditIcon";
 import { Cross } from "../../icons/Cross";
 import { addNewTask, changeTaskStatus } from "../../services/reducers/tasks";
 import { TaskColumn } from "../../components/TaskColumn/TaskColumn";
+import { useTypedSelector } from "../../hooks/useSelector";
 
 export const Tasks: FC = () => {
   const [addNewTaskQueue, setAddNewTaskQueue] = useState(false);
@@ -21,19 +22,19 @@ export const Tasks: FC = () => {
   const [newQueueTitle, setNewQueueTitle] = useState("");
   const { id } = useParams();
 
-  const boards = useSelector((state) => state.boards.boards);
+  const boards = useTypedSelector((state) => state.boards.boards);
   const selectedBoard = boards.filter((el) => el.key === id)[0];
-  const queueTasks = useSelector((state) =>
+  const queueTasks = useTypedSelector((state) =>
     state.tasks.tasks.filter(
       (el) => el.key === selectedBoard.key && el.status === "queue"
     )
   );
-  const doneTasks = useSelector((state) =>
+  const doneTasks = useTypedSelector((state) =>
     state.tasks.tasks.filter(
       (el) => el.key === selectedBoard.key && el.status === "done"
     )
   );
-  const developmentTasks = useSelector((state) =>
+  const developmentTasks = useTypedSelector((state) =>
     state.tasks.tasks.filter(
       (el) => el.key === selectedBoard.key && el.status === "development"
     )
