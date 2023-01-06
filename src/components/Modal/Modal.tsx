@@ -1,15 +1,11 @@
-import React, { useState, useEffect, FC, FormEventHandler } from "react";
+import React, { useState, useEffect, FC } from "react";
 import styles from "./Modal.module.css";
 import ReactDom from "react-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  closeModalAction,
-  setCurrentTask,
-} from "../../services/modal/modal";
+import { useDispatch } from "react-redux";
+import { closeModalAction, setCurrentTask } from "../../services/modal/modal";
 import { getDate } from "../../utils/date";
 import Moment from "react-moment";
 import { ArrowPriority } from "../../icons/ArrowPriority";
-
 import {
   changeTitleTasks,
   removeEndTimeTasks,
@@ -23,6 +19,7 @@ import {
 } from "../../services/reducers/tasks";
 import { Cross } from "../../icons/Cross";
 import { Subtasks } from "../Subtasks/Subtasks";
+import { useTypedSelector } from "../../hooks/useSelector";
 
 export const Modal: FC = () => {
   const [inputActive, setInputActive] = useState(false);
@@ -31,8 +28,8 @@ export const Modal: FC = () => {
   const [valueInputChangeTitle, setValueInputChangeTitle] = useState("");
   const [buttonEndTaskActive, setButtonEndTaskActive] = useState(true);
   const [priority, setPriority] = useState("low");
-  const active = useSelector((state) => state.modal.active);
-  const task = useSelector((state) => state.modal.currentTask);
+  const active = useTypedSelector((state) => state.modal.active);
+  const task = useTypedSelector((state) => state.modal.currentTask);
   let dateEndTask = "In progress";
   if (task.endTime) dateEndTask = getDate(task.endTime);
 
