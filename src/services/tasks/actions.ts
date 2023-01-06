@@ -66,4 +66,27 @@ interface IRemoveEndTimeTasks {
   payload: any;
 }
 
+interface ISetDescriptionTasks {
+  type: TasksActionTypes.SET_DESCRIPTION_TASKS;
+  payload: any;
+}
 
+interface IChangeTitleTasks {
+  type: TasksActionTypes.CHANGE_TITLE;
+  payload: any;
+}
+
+export type TTasksActions =
+  | IAddNewTask
+  | IChangeTaskPriorityHigh
+  | IChangeTaskPriorityLow
+  | IChangeTaskStatus
+  | IChangeTitleTasks
+  | ICloseTaskAction
+  | IGetReorderTasks
+  | IRemoveEndTimeTasks
+  | IRemoveTask
+  | IRemoveTasksByPriority
+  | ISetDescriptionTasks
+  | ISetEndTimeTasks
+  | ISortByPriority;
