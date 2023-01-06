@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import styles from "./Tasks.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
@@ -14,7 +14,7 @@ import { Cross } from "../../icons/Cross";
 import { addNewTask, changeTaskStatus } from "../../services/reducers/tasks";
 import { TaskColumn } from "../../components/TaskColumn/TaskColumn";
 
-export const Tasks = () => {
+export const Tasks: FC = () => {
   const [addNewTaskQueue, setAddNewTaskQueue] = useState(false);
   const [showAddButton, setShowAddButton] = useState(false);
 
