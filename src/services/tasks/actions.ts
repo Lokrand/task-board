@@ -17,7 +17,7 @@ export enum TasksActionTypes {
 
 interface IChangeTaskStatus {
   type: TasksActionTypes.CHANGE_TASK_STATUS;
-  payload: string;
+  payload: any;
 }
 
 interface IAddNewTask {
@@ -25,3 +25,7 @@ interface IAddNewTask {
   payload: any;
 }
 
+interface ICloseTaskAction {
+  type: TasksActionTypes.CLOSE_TASK;
+  payload: any;
+}
