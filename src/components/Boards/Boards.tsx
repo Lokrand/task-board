@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FC, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { addNewBoard } from "../../services/boards/actions";
 import { Board } from "../Board/Board";
 import styles from "./Boards.module.css";
@@ -7,6 +6,7 @@ import { generateKeys } from "../../utils/generateKeys";
 import { Cross } from "../../icons/Cross";
 import { IBoards } from "../../services/types/data";
 import { useTypedSelector } from "../../hooks/useSelector";
+import { useDispatch } from "../../hooks/useDispatch";
 
 export const Boards: FC = () => {
   const dispatch = useDispatch();
