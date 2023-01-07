@@ -1,4 +1,11 @@
-import React, { FC } from "react";
+import React, {
+  FC,
+  ForwardRefExoticComponent,
+  JSXElementConstructor,
+  ReactElement,
+  RefAttributes,
+  RefObject,
+} from "react";
 import { ConnectDropTarget } from "react-dnd";
 import { ITask } from "../../services/types/data";
 import { Task } from "../Task/Task";
@@ -8,11 +15,18 @@ interface ITaskColumn {
   ref: ConnectDropTarget;
   title: string;
   tasks: ITask[];
-  children: React.ReactNode;
-  footer: any;
+  children?: React.ReactNode;
+  footer?: any;
 }
 
-export const TaskColumn: FC<ITaskColumn> = React.forwardRef((props, ref) => {
+export const TaskColumn: ForwardRefExoticComponent<
+  Pick<ITaskColumn, "title" | "tasks" | "children" | "footer"> &
+    RefAttributes<
+      | RefObject<any>
+      | ReactElement<any, string | JSXElementConstructor<any>>
+      | Element
+    >
+> = React.forwardRef((props, ref) => {
   const { title, tasks, children, footer } = props;
 
   return (
