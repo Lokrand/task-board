@@ -31,9 +31,9 @@ export const Modal: FC = () => {
   const active = useTypedSelector((state) => state.modal.active);
   const task = useTypedSelector((state) => state.modal.currentTask);
   let dateEndTask = "In progress";
-  if (task) {
+  
     if (task.endTime) dateEndTask = getDate(task.endTime);
-  }
+  
 
   const date = getDate(task.date);
 
@@ -64,7 +64,7 @@ export const Modal: FC = () => {
       dispatch(closeTaskAction({ id: task.id }));
     }
     dispatch(closeModalAction());
-    dispatch(setCurrentTask([]));
+    dispatch(setCurrentTask({}));
   };
   const closeTask = () => {
     setButtonEndTaskActive(false);

@@ -3,14 +3,14 @@ import { TModalActions, ModalActionTypes } from "./actions";
 
 interface IModalState {
   active: boolean;
-  currentTask: ITask | null;
-  currentBoard: IBoards | null;
+  currentTask: ITask;
+  currentBoard: IBoards;
 }
 
 const initialState: IModalState = {
   active: false,
-  currentTask: null,
-  currentBoard: null,
+  currentTask: {} as ITask,
+  currentBoard: {} as IBoards,
 };
 
 export const modal = (

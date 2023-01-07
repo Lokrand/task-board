@@ -92,66 +92,66 @@ export type TTasksActions =
   | ISetEndTimeTasks
   | ISortByPriority;
 
-export const changeTaskStatus = (payload: any):TTasksActions => ({
+export const changeTaskStatus = (payload: any): TTasksActions => ({
   type: TasksActionTypes.CHANGE_TASK_STATUS,
   payload,
 });
 
-export const addNewTask = (payload: any):TTasksActions => ({
+export const addNewTask = (payload: any): TTasksActions => ({
   type: TasksActionTypes.ADD_TASKS,
   payload,
 });
 
-export const closeTaskAction = (payload: any):TTasksActions => ({
+export const closeTaskAction = (payload: any): TTasksActions => ({
   type: TasksActionTypes.CLOSE_TASK,
   payload,
 });
 
-export const getReorderTasks = (payload: any):TTasksActions => ({
+export const getReorderTasks = (payload: any): TTasksActions => ({
   type: TasksActionTypes.GET_REORDER_TASKS,
   payload,
 });
 
-export const changeTaskPriorityHigh = (payload: any):TTasksActions => ({
+export const changeTaskPriorityHigh = (payload: any): TTasksActions => ({
   type: TasksActionTypes.CHANGE_TASK_PRIORITY_HIGH,
   payload,
 });
 
-export const changeTaskPriorityLow = (payload: any):TTasksActions => ({
+export const changeTaskPriorityLow = (payload: any): TTasksActions => ({
   type: TasksActionTypes.CHANGE_TASK_PRIORITY_LOW,
   payload,
 });
 
-export const sortByPriority = ():TTasksActions => ({
+export const sortByPriority = (): TTasksActions => ({
   type: TasksActionTypes.SORT_BY_PRIORITY,
 });
 
-export const removeTasksByPriority = (payload: any):TTasksActions => ({
+export const removeTasksByPriority = (payload: any): TTasksActions => ({
   type: TasksActionTypes.REMOVE_TASKS_BY_PRIORITY,
   payload,
 });
 
-export const removeTask = (payload: any):TTasksActions => ({
+export const removeTask = (payload: any): TTasksActions => ({
   type: TasksActionTypes.REMOVE_TASK,
   payload,
 });
 
-export const setEndTimeTasks = (payload: any):TTasksActions => ({
+export const setEndTimeTasks = (payload: any): TTasksActions => ({
   type: TasksActionTypes.SET_ENDTIME_TASKS,
   payload,
 });
 
-export const removeEndTimeTasks = (payload: any):TTasksActions => ({
+export const removeEndTimeTasks = (payload: any): TTasksActions => ({
   type: TasksActionTypes.REMOVE_ENDTIME_TASKS,
   payload,
 });
 
-export const setDescriptionTasks = (payload: any):TTasksActions => ({
+export const setDescriptionTasks = (payload: any): TTasksActions => ({
   type: TasksActionTypes.SET_DESCRIPTION_TASKS,
   payload,
 });
 
-export const changeTitleTasks = (payload: any):TTasksActions => ({
+export const changeTitleTasks = (payload: any): TTasksActions => ({
   type: TasksActionTypes.CHANGE_TITLE,
   payload,
 });

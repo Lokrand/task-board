@@ -1,4 +1,4 @@
-import { createStore, combineReducers, compose, applyMiddleware } from "redux";
+import { createStore, combineReducers, compose } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { boards } from "./boards/boards";
@@ -19,10 +19,6 @@ declare global {
   }
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-
-
 const rootReducer = combineReducers({
   boards,
   modal,
@@ -30,7 +26,6 @@ const rootReducer = combineReducers({
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 
 export const store = createStore(persistedReducer);
 
