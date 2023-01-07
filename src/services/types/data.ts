@@ -1,8 +1,8 @@
 export interface IBoards {
   title: string;
-  date: string;
+  date: string | object;
   key: string;
-  status: string;
+  status: string | boolean;
 }
 
 export interface ITask {

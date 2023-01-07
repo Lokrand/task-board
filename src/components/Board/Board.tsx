@@ -5,7 +5,7 @@ import styles from "./Board.module.css";
 interface IBoard {
   title: string;
   id: string;
-  status: string;
+  status: string | boolean;
 }
 
 export const Board: FC<IBoard> = ({ title, id, status }) => {
