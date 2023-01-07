@@ -1,24 +1,26 @@
 import React, { FC } from "react";
 import styles from "./Task.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
 import { RemoveIcon } from "../../icons/RemoveIcon";
 import { EditIcon } from "../../icons/EditIcon";
-import { removeTask } from "../../services/tasks/tasks";
+import { removeTask } from "../../services/tasks/actions";
 import {
   openModal,
   setCurrentBoard,
   setCurrentTask,
-} from "../../services/modal/modal";
+} from "../../services/modal/actions";
+import { ITask } from "../../services/types/data";
+import { useTypedSelector } from "../../hooks/useSelector";
 
-interface Task {
-
+interface ITaskComponent {
+  el: ITask;
 }
 
-export const Task: FC = ({ el }) => {
+export const Task: FC<ITaskComponent> = ({ el }) => {
   const { title, id, endTime, priority, status } = el;
   const dispatch = useDispatch();
-  const selectedBoard = useSelector((state) =>
+  const selectedBoard = useTypedSelector((state) =>
     state.boards.boards.find((board) => board.key === el.key)
   );
   const handleRemoveTask = () => {
@@ -31,7 +33,7 @@ export const Task: FC = ({ el }) => {
     dispatch(setCurrentBoard(selectedBoard));
   };
 
-  const setBgColor = (status, priority) => {
+  const setBgColor = (status: string | null, priority: string) => {
     if (status !== null) {
       return `${styles.task} ${styles.task_complete}`;
     } else if (status === null && priority === "high") {

@@ -31,9 +31,8 @@ export const Modal: FC = () => {
   const active = useTypedSelector((state) => state.modal.active);
   const task = useTypedSelector((state) => state.modal.currentTask);
   let dateEndTask = "In progress";
-  
-    if (task.endTime) dateEndTask = getDate(task.endTime);
-  
+
+  if (task.endTime) dateEndTask = getDate(task.endTime);
 
   const date = getDate(task.date);
 
@@ -52,7 +51,7 @@ export const Modal: FC = () => {
   const goBack = () => {
     setInputActive(false);
   };
-  const onChangeInput = (e) => {
+  const onChangeInput: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setInputValue(e.target.value);
   };
 
@@ -117,7 +116,7 @@ export const Modal: FC = () => {
   const hideChangeTitleInput = () => {
     setShowInputChangeTitle(false);
   };
-  const changeTitleText:ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+  const changeTitleText: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setValueInputChangeTitle(e.target.value);
   };
 
@@ -266,6 +265,6 @@ export const Modal: FC = () => {
         </div>
       </div>
     </div>,
-    document.getElementById("modals")
+    document.getElementById("modals")!
   );
 };

@@ -1,5 +1,5 @@
-@import "../../utils/normalize.css";
-@import "../../utils/fonts/fonts.css";
+@import "../../vendor/normalize.css";
+@import "../../vendor/fonts/fonts.css";
 
 h1,
 h2,

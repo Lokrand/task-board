@@ -16,4 +16,6 @@ export interface ITask {
   subtasks: any[];
   comments: any[];
   subComments: any[];
+  date: string;
+  key: string;
 }
