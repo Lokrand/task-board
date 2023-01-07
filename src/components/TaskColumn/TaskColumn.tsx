@@ -12,7 +12,7 @@ import { Task } from "../Task/Task";
 import styles from "./TaskColumn.module.css";
 
 interface ITaskColumn {
-  ref: ConnectDropTarget;
+  ref: HTMLDivElement;
   title: string;
   tasks: ITask[];
   children?: React.ReactNode;
@@ -21,11 +21,7 @@ interface ITaskColumn {
 
 export const TaskColumn: ForwardRefExoticComponent<
   Pick<ITaskColumn, "title" | "tasks" | "children" | "footer"> &
-    RefAttributes<
-      | RefObject<any>
-      | ReactElement<any, string | JSXElementConstructor<any>>
-      | Element
-    >
+    RefAttributes<HTMLDivElement>
 > = React.forwardRef((props, ref) => {
   const { title, tasks, children, footer } = props;
 

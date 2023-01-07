@@ -102,11 +102,11 @@ export const tasks = (
     case TasksActionTypes.CLOSE_TASK:
       return {
         ...state,
-        tasks: state.tasks.map((item) =>
-          item.id === action.payload.id
-            ? { ...item, status: "done", endTime: new Date() }
-            : item
-        ),
+        // tasks: state.tasks.map((item) =>
+        //   item.id === action.payload.id
+        //     ? { ...item, status: "done", endTime: new Date() }
+        //     : item
+        // ),
       };
     default:
       return state;
