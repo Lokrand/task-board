@@ -13,15 +13,15 @@ interface IAddNewBoard {
 }
 interface IChangeBoardTitleAction {
   type: BoardActionTypes.CHANGE_BOARD_TITLE;
-  payload: IBoards;
+  payload: { key: string; title: string };
 }
 interface IChangeBoardStatus {
   type: BoardActionTypes.CHANGE_BOARD_STATUS;
-  payload: IBoards;
+  payload: { key: string; status: boolean };
 }
 interface IRemoveBoard {
   type: BoardActionTypes.REMOVE_BOARD;
-  payload: IBoards;
+  payload: { key: string };
 }
 
 export type TBoardsActions =
@@ -35,17 +35,25 @@ export const addNewBoard = (payload: IBoards): TBoardsActions => ({
   payload,
 });
 
-export const changeBoardTitleAction = (payload: IBoards): TBoardsActions => ({
+export const changeBoardTitleAction = (payload: {
+  key: string;
+  title: string;
+}): TBoardsActions => ({
   type: BoardActionTypes.CHANGE_BOARD_TITLE,
   payload,
 });
 
-export const changeBoardStatus = (payload: IBoards): TBoardsActions => ({
+export const changeBoardStatus = (payload: {
+  key: string;
+  status: boolean;
+}): TBoardsActions => ({
   type: BoardActionTypes.CHANGE_BOARD_STATUS,
   payload,
 });
 
-export const removeBoardAction = (payload: IBoards): TBoardsActions => ({
+export const removeBoardAction = (payload: {
+  key: string;
+}): TBoardsActions => ({
   type: BoardActionTypes.REMOVE_BOARD,
   payload,
 });

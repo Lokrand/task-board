@@ -1,6 +1,5 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, ChangeEventHandler } from "react";
 import styles from "./Tasks.module.css";
-import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import {
   changeBoardStatus,
@@ -14,6 +13,8 @@ import { Cross } from "../../icons/Cross";
 import { addNewTask, changeTaskStatus } from "../../services/tasks/actions";
 import { TaskColumn } from "../../components/TaskColumn/TaskColumn";
 import { useTypedSelector } from "../../hooks/useSelector";
+import { useDispatch } from "../../hooks/useDispatch";
+import { ITask } from "../../services/types/data";
 
 export const Tasks: FC = () => {
   const [addNewTaskQueue, setAddNewTaskQueue] = useState(false);
@@ -40,7 +41,7 @@ export const Tasks: FC = () => {
     )
   );
 
-  const active = useSelector((state) => state.modal.active);
+  const active = useTypedSelector((state) => state.modal.active);
   const [showInputTitle, setShowInputTitle] = useState(false);
   const [changeInputTitleValue, setChangeInputTitleValue] = useState("");
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ export const Tasks: FC = () => {
     setAddNewTaskQueue(true);
   };
 
-  const onChange = (e) => {
+  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.value.length > 0) {
       setShowAddButton(true);
       setNewQueueTitle(e.target.value);
@@ -104,13 +105,13 @@ export const Tasks: FC = () => {
     dispatch(removeBoardAction({ key: selectedBoard.key }));
   };
 
-  const handleDrop = (id, status) => {
+  const handleDrop = (id: string, status: string) => {
     dispatch(changeTaskStatus({ id, status }));
   };
 
   const [, dropOnDevelopment] = useDrop(() => ({
     accept: ["queue", "done"],
-    drop: (item) => handleDrop(item.id, "development"),
+    drop: (item: ITask) => handleDrop(item.id, "development"),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
@@ -118,7 +119,7 @@ export const Tasks: FC = () => {
 
   const [, dropOnQueue] = useDrop(() => ({
     accept: ["development", "done"],
-    drop: (item) => handleDrop(item.id, "queue"),
+    drop: (item: ITask) => handleDrop(item.id, "queue"),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
@@ -126,7 +127,7 @@ export const Tasks: FC = () => {
 
   const [, dropOnDone] = useDrop(() => ({
     accept: ["development", "queue"],
-    drop: (item) => handleDrop(item.id, "done"),
+    drop: (item: ITask) => handleDrop(item.id, "done"),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
