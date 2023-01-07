@@ -208,13 +208,12 @@ export const Tasks: FC = () => {
           >
             {addNewTaskQueue && (
               <>
-                <textarea
+                <input
                   className={styles.tasks__input}
-                  rows="1"
                   placeholder="Enter the name of the new task..."
                   id="textName"
                   onChange={onChange}
-                ></textarea>
+                />
                 {showAddButton && (
                   <div className={styles.tasks__cancel}>
                     <button
