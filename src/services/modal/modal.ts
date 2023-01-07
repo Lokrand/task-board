@@ -1,17 +1,24 @@
+import { IBoards, ITask } from "../types/data";
+
 export const OPEN_MODAL = "OPEN_MODAL";
 export const CLOSE_MODAL = "CLOSE_MODAL";
 export const SET_CURRENT_TASK = "SET_CURRENT_TASK";
 export const SET_CURRENT_BOARD = "SET_CURRENT_BOARD";
 
 
+interface IModalState {
+  active: boolean;
+  currentTask: ITask | null;
+  currentBoard: IBoards | null;
+}
 
-const initialState = {
+const initialState: IModalState = {
   active: false,
   currentTask: null,
   currentBoard: null,
 };
 
-export const modal = (state = initialState, action) => {
+export const modal = (state = initialState, action): IModalState => {
   switch (action.type) {
     case OPEN_MODAL:
       return {
