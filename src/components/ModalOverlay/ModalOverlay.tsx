@@ -7,7 +7,11 @@ interface IModalOverlay {
   children: React.ReactNode;
 }
 
-export const ModalOverlay: FC<IModalOverlay> = ({ active, children, onClick }) => {
+export const ModalOverlay: FC<IModalOverlay> = ({
+  active,
+  children,
+  onClick,
+}) => {
   return (
     <div
       className={active ? `${styles.modal} ${styles.active}` : styles.modal}

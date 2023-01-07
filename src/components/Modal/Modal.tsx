@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from "react";
+import React, { useState, useEffect, FC, ChangeEventHandler } from "react";
 import styles from "./Modal.module.css";
 import ReactDom from "react-dom";
 import { useDispatch } from "react-redux";
@@ -88,7 +88,7 @@ export const Modal: FC = () => {
   };
 
   useEffect(() => {
-    function closeByEscape(evt) {
+    function closeByEscape(evt: KeyboardEvent) {
       if (evt.key === "Escape") {
         dispatch(closeModalAction());
         closeModal();
@@ -117,7 +117,7 @@ export const Modal: FC = () => {
   const hideChangeTitleInput = () => {
     setShowInputChangeTitle(false);
   };
-  const changeTitleText = (e) => {
+  const changeTitleText:ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setValueInputChangeTitle(e.target.value);
   };
 

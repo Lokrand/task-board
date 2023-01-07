@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { ChangeEventHandler, FC, useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import styles from "./Subtasks.module.css";
 
@@ -7,7 +7,7 @@ export const Subtasks: FC = () => {
   const [inputNewSubtaskValue, setInputNewSubtaskValue] = useState("");
   const [inputNewSubtaskError, setInputNewSubtaskError] = useState(false);
 
-  const onChangeNewSubtaskInput = (e) => {
+  const onChangeNewSubtaskInput:ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputNewSubtaskValue(e.target.value);
   };
 
@@ -42,10 +42,12 @@ export const Subtasks: FC = () => {
             </p>
           )}
         </div>
-        {!inputNewSubtaskError && <div className={styles.subtasks__addNewSubtaskButtons}>
-          <Button color="green" title="Create" />
-          <Button color="red" title="Cancel" />
-        </div>}
+        {!inputNewSubtaskError && (
+          <div className={styles.subtasks__addNewSubtaskButtons}>
+            <Button color="green" title="Create" />
+            <Button color="red" title="Cancel" />
+          </div>
+        )}
       </div>
       <button
         onClick={letShowInput}
