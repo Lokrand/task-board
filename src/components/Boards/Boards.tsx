@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEventHandler, FC, useState } from "react";
 import { addNewBoard } from "../../services/boards/actions";
 import { Board } from "../Board/Board";
 import styles from "./Boards.module.css";
@@ -23,7 +23,7 @@ export const Boards: FC = () => {
     setActive(true);
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     if (e.target.value.length > 0) {
       setNewBoard(true);
       setNewBoardTitle(e.target.value);
