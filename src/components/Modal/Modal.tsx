@@ -110,12 +110,15 @@ export const Modal: FC = () => {
     dispatch(changeTitleTasks({ id: task.id, title: valueInputChangeTitle }));
     setShowInputChangeTitle(false);
   };
+
   const showChangeTitleInput = () => {
     setShowInputChangeTitle(true);
   };
+
   const hideChangeTitleInput = () => {
     setShowInputChangeTitle(false);
   };
+  
   const changeTitleText: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setValueInputChangeTitle(e.target.value);
   };
