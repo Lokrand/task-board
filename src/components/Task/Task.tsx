@@ -18,6 +18,7 @@ interface ITaskComponent {
 }
 
 export const Task: FC<ITaskComponent> = ({ el }) => {
+  
   const { title, id, endTime, priority, status } = el;
   const dispatch = useDispatch();
   const selectedBoard = useTypedSelector((state) =>
