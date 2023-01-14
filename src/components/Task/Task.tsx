@@ -14,6 +14,7 @@ import { ITask } from "../../services/types/data";
 import { useTypedSelector } from "../../hooks/useSelector";
 
 interface ITaskComponent {
+  
   el: ITask;
 }
 
