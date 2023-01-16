@@ -101,6 +101,9 @@ export const Modal: FC = () => {
     }
   }, [active]);
 
+
+
+
   const setDescriptionText = () => {
     dispatch(setDescriptionTasks({ id: task.id, description: inputValue }));
     setInputActive(false);
